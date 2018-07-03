@@ -1,5 +1,5 @@
-import { DataService } from './../service/data.service';
 import { Component, OnInit } from '@angular/core';
+import { DataService } from './../service/data.service';
 import { Card } from '../model/Card';
 import { trigger, style, state } from '@angular/animations';
 import { Player } from '../model/Player';
@@ -7,9 +7,10 @@ import 'rxjs/add/operator/map';
 import { StyleService } from '../service/style.service';
 
 
+
 @Component({
-  selector: 'app-game',
-  templateUrl: './playerOne.html',
+  selector: 'app-player-one',
+  templateUrl: './player-one.component.html',
   styleUrls: ['./board.css', './card.css'],
   animations: [
     trigger('hoverAnimation', [
@@ -28,9 +29,9 @@ import { StyleService } from '../service/style.service';
       state('true', style ({
         transform: 'scale(1.2)',
         zIndex: 4000}))
-    ])
+      ])
   ]})
-export class GameComponent {
+export class PlayerOneComponent {
 
   selectedCard: Card;
 
@@ -140,4 +141,7 @@ export class GameComponent {
   isItMyTurn(): boolean {
       return this.dataService.gameState.playerOne.isActive;
   }
+}
+
+
 }
