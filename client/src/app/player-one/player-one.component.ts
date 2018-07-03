@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { DataService } from './../service/data.service';
 import { Card } from '../model/Card';
 import { trigger, style, state } from '@angular/animations';
@@ -11,14 +11,14 @@ import { StyleService } from '../service/style.service';
 @Component({
   selector: 'app-player-one',
   templateUrl: './player-one.component.html',
-  styleUrls: ['./board.css', './card.css'],
+  styleUrls: ['../css/board.css', '../css/card.css'],
   animations: [
     trigger('hoverAnimation', [
-      state("true", style({
+      state('true', style({
         transform: 'scale(1.4) translate(0px, -70px)',
         zIndex: 4000
       })),
-      state("false", style({
+      state('false', style({
         transform: 'scale(1.0)'
       })),
     ]),
@@ -143,5 +143,3 @@ export class PlayerOneComponent {
   }
 }
 
-
-}

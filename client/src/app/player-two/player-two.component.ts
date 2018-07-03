@@ -10,14 +10,14 @@ import { StyleService } from '../service/style.service';
 @Component({
   selector: 'app-player-two',
   templateUrl: './player-two.component.html',
-  styleUrls: ['./player-two.component.css'],
+  styleUrls: ['../css/board.css', '../css/card.css'],
   animations: [
     trigger('hoverAnimation', [
-      state("true", style({
+      state('true', style({
         transform: 'scale(1.4) translate(0px, -70px)',
         zIndex: 4000
       })),
-      state("false", style({
+      state('false', style({
         transform: 'scale(1.0)'
       })),
     ]),
