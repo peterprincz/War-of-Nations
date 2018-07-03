@@ -25,7 +25,7 @@ import { StyleService } from '../service/style.service';
     trigger('coolDownAnimation', [
       state('false', style ({ animationName: 'notOnCoolDown', animationDuration: '6s', animationIterationCount: 'infinite'}))
     ]),
-    trigger('selectedCard', [
+    trigger('selectedCardAnimation', [
       state('true', style ({
         transform: 'scale(1.2)',
         zIndex: 4000}))
