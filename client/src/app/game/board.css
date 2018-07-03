@@ -1,0 +1,67 @@
+.gameComponent{
+  background-image :url("/assets/img/background.png");
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  top:100px;
+}
+
+.myHalf-wrapper{
+  border: 1px solid black;
+  min-height: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.enemyHalf-wrapper{
+  border: 1px solid black;
+  min-height: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-fluid{
+  max-width: 2000px;
+}
+
+.myHand{
+  height: 170px;
+}
+
+.healthDiv{
+  background-color:white;
+  font-size:150%;
+  color:red;
+}
+
+.manaDiv{
+  background-color:white;
+  font-size: 150%;
+  color:blue;
+}
+
+.character{
+  width: 120px;
+  height: 80px;
+}
+
+.deck{
+  color: white;
+  background-color:#4e4e4e;
+  width: 150px;
+  height: 100px;
+}
+
+endRoundBtn{
+  margin:auto;
+  display:block;
+}
+
+
+@keyframes notOnCoolDown {
+  0%   {background-color: white}
+  50% {background-color: #616161}
+  100% {background-color:white};
+}

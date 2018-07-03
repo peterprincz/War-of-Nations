@@ -1,0 +1,86 @@
+
+.cardOnTable {
+  display:inline-block;
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  width: 170px;
+  height:230px;
+  max-height: 230px;
+  margin: 10px;
+}
+
+.cardInHand {
+  position: relative;
+  display:inline-block;
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  transition: 0.3s;
+  width: 170px;
+  height:230px;
+  max-height: 230px;
+}
+
+.enemyCard{
+  display:inline-block;
+  background-color:black;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 170px;
+  height:160px;
+  margin: 3px;
+}
+
+.cardRole, .cardMana, .cardHealth, .cardAttack, .cardName{
+  font-size: 150%;
+}
+.cardMana{
+  text-align: left;
+  color:white;
+  position: relative;
+  left: 22px;
+  top: 7px;
+}
+
+.cardAttack{
+  position: relative;
+  text-align: center;
+  color:white;
+  left: 9px;
+  bottom: 18px;
+}
+
+.cardHealth{
+  position:relative;
+  color:white;
+  text-align: center;
+  right: 1px;
+  bottom: 15px;
+}
+
+.enemyCard > * > *   {
+  display: none;
+}
+
+cardContainer {
+  padding: 2px 16px;
+}
+
+/*The inner box of a Card */
+
+.cardTopRow{
+  height:20%;
+}
+.cardNameRow{
+  height: 30%;
+  text-align: center;
+}
+
+.cardBottomRow{
+  height: 10%;
+}
+
+.cardImageRow{
+  height:40%
+}

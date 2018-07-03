@@ -1,0 +1,148 @@
+.gameComponent{
+  background-image :url("/assets/img/background.png");
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  top:100px;
+}
+
+
+.container-fluid{
+  max-width: 2000px;
+}
+
+.cardTopRow{
+  height:20%;
+}
+.cardNameRow{
+  height: 30%;
+  text-align: center;
+}
+
+.cardBottomRow{
+  height: 10%;
+}
+
+.cardImageRow{
+  height:40%
+}
+
+.myHand{
+  height: 170px;
+}
+
+.cardOnTable {
+  display:inline-block;
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center;              /* optional, center the image */
+  width: 170px;
+  height:230px;
+  max-height: 230px;
+  margin: 10px;
+}
+
+.cardInHand {
+  position: relative;
+  display:inline-block;
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center;              /* optional, center the image */
+  transition: 0.3s;
+  width: 170px;
+  height:230px;
+  max-height: 230px;
+}
+
+
+.cardRole, .cardMana, .cardHealth, .cardAttack, .cardName{
+  font-size: 150%;
+}
+
+
+.enemyCard{
+  display:inline-block;
+  background-color:black;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 170px;
+  height:160px;
+  margin: 3px;
+}
+
+.enemyCard > * > *   {
+  display: none;
+}
+
+/* On mouse-over, add a deeper shadow */
+
+/* Add some padding inside the card container */
+cardContainer {
+  padding: 2px 16px;
+}
+.enemyHalf-wrapper{
+  border: 1px solid black;
+  min-height: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.myHalf-wrapper{
+  border: 1px solid black;
+  min-height: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardMana{
+  text-align: left;
+  color:white;
+  position: relative;
+  left: 22px;
+  top: 7px;
+}
+
+.cardAttack{
+  position: relative;
+  text-align: center;
+  color:white;
+  left: 9px;
+  bottom: 18px;
+}
+
+.cardHealth{
+  position:relative;
+  color:white;
+  text-align: center;
+  right: 1px;
+  bottom: 15px;
+}
+
+.healthDiv{
+  background-color:white;
+  font-size:150%;
+  color:red;
+}
+.manaDiv{
+  background-color:white;
+  font-size: 150%;
+  color:blue;
+}
+.character{
+  width: 120px;
+  height: 80px;
+}
+.deck{
+  color: white;
+  background-color:#4e4e4e;
+  width: 150px;
+  height: 100px;
+}
+
+@keyframes notOnCoolDown {
+  0%   {background-color: white}
+  50% {background-color: #616161}
+  100% {background-color:white};
+}

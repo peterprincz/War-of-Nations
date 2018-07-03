@@ -1,0 +1,163 @@
+
+<div class="container-fluid gameComponent">
+  <div class="row">
+      <div class="myHand">
+        <div class="col-md-8 col-md-offset-2">
+          <div *ngFor="let card of dataService.gameState.playerOne.hand.cards" class="enemyCard">
+            <div class="cardContainer">
+            </div>
+        </div>
+    </div>
+   </div>
+  </div>
+  <div class="row">
+      <div id="char" class="myCharacter">
+         <div class="col-md-2">
+             <div class="healthDiv" >
+               <p>health: {{dataService.gameState.playerOne.health}}<p>
+             </div>
+             <div class="manaDiv">
+                <p>mana: {{ dataService.gameState.playerOne.mana}} / {{dataService.gameState.playerOne.maximumMana}}</p>
+              </div>
+           </div>
+           <div class="col-md-8">
+              <div class="col-md-2 col-md-offset-5 character" (click)="onEnemyPlayerClick($event)" [ngStyle]="getCharacterStyle(dataService.gameState.playerOne)">
+                <h3>{{dataService.gameState.playerOne.name}}</h3>
+              </div>
+            </div>
+         <div class="col-md-2">
+           <div class="deck">
+              Cards remained: {{dataService.gameState.playerOne.deck.length}}
+          </div>
+         </div>
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2 enemyHalf-wrapper">
+           <div class="cardOnTable"
+            [ngStyle]="getStyleForEnemyCard(card)"
+            *ngFor="let card of dataService.gameState.playerOne.half.cards"
+            (click)="onEnemyCardClick(card)"
+            >
+            <div class="row cardTopRow">
+              <div class="col-xs-6"><div class="cardMana"><p class="text-left">{{card.mana}}</p></div></div>
+          </div>
+          <div class="row cardImageRow cardImage">
+              <div class="col-xs-12">
+                  <div class="cardImage"></div>
+              </div>
+          </div>
+          <div class="row cardNameRow">
+
+          </div>
+          <div class="row cardBottomRow">
+              <div class="col-xs-4">
+                  <div [style.color]="getAttackNumberStyle(card)" class="cardAttack"><p>{{card.attack}}</p></div>
+              </div>
+              <div class="col-xs-4 col-xs-offset-4">
+                  <div [style.color]="getHealthNumberStyle(card)" class="cardHealth"><p>{{card.health}}</p></div>
+              </div>
+            </div>
+          </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+        <div class="col-md-1 col-md-offset-2 col-centered">
+            <button style="margin:auto;display:block;" (click)="switchSide()">switchSide</button>
+        </div>
+        <div class="col-md-1 col-md-offset-6 col-centered">
+            <button style="margin:auto;display:block;"(click)="endRound()">endRound</button>
+        </div>
+      </div>
+      </div>
+      <div id="myHalfID" class="row">
+        <div (dragover)="onDragOver($event)" (drop)="onDropMyHalf($event)" class="col-md-8 col-md-offset-2 myHalf-wrapper">
+         <div class="cardOnTable"
+          *ngFor="let card of dataService.gameState.playerTwo.half.cards"
+          [ngStyle]="getStyleForMyCard(card)"
+          (click)="onCardClick(card)"
+          (mouseenter)="card.hovered=true"
+          (mouseleave)="card.hovered=false"
+          [@coolDownAnimation]='card.onCoolDown'
+          [@selectedCard]='card == selectedCard'
+        >
+        <div class="row cardTopRow">
+          <div class="col-xs-6"><div class="cardMana"><p class="text-left">{{card.mana}}</p></div></div>
+      </div>
+      <div class="row cardImageRow cardImage">
+          <div class="col-xs-12">
+              <div class="cardImage"></div>
+          </div>
+      </div>
+      <div class="row cardNameRow">
+      </div>
+      <div class="row cardBottomRow">
+          <div class="col-xs-4">
+              <div [style.color]="getAttackNumberStyle(card)" class="cardAttack"><p>{{card.attack}}</p></div>
+          </div>
+          <div class="col-xs-4 col-xs-offset-4">
+              <div [style.color]="getHealthNumberStyle(card)" class="cardHealth"><p>{{card.health}}</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="myCharacter">
+           <div class="col-md-2">
+               <div class="healthDiv" >
+                 <p>health: {{dataService.gameState.playerTwo.health}}</p>
+               </div>
+               <div class="manaDiv">
+                  <p> mana:{{ dataService.gameState.playerTwo.mana}} / {{dataService.gameState.playerTwo.maximumMana}} </p>
+               </div>
+             </div>
+             <div class="col-md-8">
+                <div class="col-md-2 col-md-offset-5 character" [ngStyle]="getCharacterStyle(dataService.gameState.playerTwo)">
+                  <h3>{{dataService.gameState.playerTwo.name}}</h3>
+                </div>
+              </div>
+           <div class="col-md-2">
+              <div id="deck" class="deck">
+                Cards remained: {{dataService.gameState.playerTwo.deck.length}}
+              </div>
+           </div>
+        </div>
+      </div>
+ <div class="row">
+    <div class="myHandWrapper">
+      <div class="col-md-8 col-md-offset-2 myHand tableRow">
+        <div class="contianer-fluid cardInHand"
+                  *ngFor="let card of dataService.gameState.playerTwo.hand.cards"
+                  [@hoverAnimation]='card.hovered'
+                  [ngStyle]="getStyleForMyCard(card)"
+                  (dragstart)="dragMyCard($event, card)"
+                  (mouseenter)="card.hovered=true"
+                  (mouseleave)="card.hovered=false"
+                  (dragover)="onDragOver($event)"
+                  draggable="true"
+        >
+          <div class="row cardTopRow">
+              <div class="col-xs-6"><div [style.color]="getManaNumberStyle(card)" class="cardMana"><p>{{card.mana}}</p></div></div>
+          </div>
+          <div class="row cardImageRow cardImage">
+              <div class="col-xs-12">
+                  <div class="cardImage"></div>
+              </div>
+          </div>
+          <div class="row cardNameRow">
+
+          </div>
+          <div class="row cardBottomRow">
+              <div class="col-xs-4">
+                  <div *ngIf="card.attack" class="cardAttack"><p>{{card.attack}}</p></div>
+              </div>
+              <div class="col-xs-4 col-xs-offset-4">
+                  <div *ngIf="card.health" class="cardHealth"><p>{{card.health}}</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
