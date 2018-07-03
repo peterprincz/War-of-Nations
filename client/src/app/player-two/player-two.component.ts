@@ -1,7 +1,7 @@
 import { DataService } from './../service/data.service';
 import { Component, OnInit } from '@angular/core';
 import { Card } from '../model/Card';
-import { trigger, style, state } from '@angular/animations';
+import { trigger, style, state, transition, animate, keyframes } from '@angular/animations';
 import { Player } from '../model/Player';
 import 'rxjs/add/operator/map';
 import { StyleService } from '../service/style.service';
@@ -23,6 +23,15 @@ import { StyleService } from '../service/style.service';
     ]),
     trigger('coolDownAnimation', [
       state('false', style ({ animationName: 'notOnCoolDown', animationDuration: '6s', animationIterationCount: 'infinite'}))
+    ]),
+    trigger('playAnimation', [
+      transition('* => true', [
+        animate(300, keyframes([
+          style({offset: 0, transform: "scale(1.5)", filter: "blur(2px)"}),
+          style({offset: 0.5, transform: "scale(1.3)", filter: "blur(1px)"}),
+          style({offset: 1, transform: "scale(1.0)"})
+        ]))
+      ]),
     ]),
     trigger('selectedCard', [
       state('true', style ({

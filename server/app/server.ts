@@ -1,3 +1,4 @@
+import { AnimationService } from './services/animation-service';
 import { SoundService } from './services/sound.service';
 import { GameService } from './services/game.service';
 import { createServer, Server } from 'http';
@@ -8,6 +9,7 @@ export class GameServer {
 
     gameService: GameService;
     soundService: SoundService;
+    animationService: AnimationService;
 
     static readonly PORT:number = 8080;
     app: express.Application;
@@ -21,7 +23,8 @@ export class GameServer {
         this.server = createServer(this.app);
         this.io = socketIo(this.server);
         this.soundService = new SoundService();
-        this.gameService = new GameService(this.soundService);
+        this.animationService = new AnimationService();
+        this.gameService = new GameService(this.soundService, this.animationService);
         this.listen();
     }
 
@@ -53,14 +56,14 @@ export class GameServer {
             socket.on('playCard', (data: any) => {
                 console.log("A playCard request came from a client");
                 if(!this.gameService.isCardPlayAbleFromHand(data.playedCard)){
-                    console.log("Invalid playCard request");
-                    this.io.emit('warningMessage', "you cant play that Card")
+                        this.io.emit('warningMessage', "you cant play that Card")
                     return;
                 }
                 this.gameService.PlayFromHand(data.playedCard);
                 this.io.emit('changeInGameState', "A change has happened in the gameState");
                 console.log("playing Card...")
                 this.sendSoundPlayList();
+                this.sendAnimationList();
             });
 
             socket.on('attackCard', (data: any) => {
@@ -106,6 +109,13 @@ export class GameServer {
         if(!this.soundService.isPlayListEmpty()){
             this.io.emit('changeInPlayList', this.soundService.playList)
             this.soundService.emptyPlayList();
+        }
+    }
+
+    public sendAnimationList(){
+        if(!this.animationService.isAnimationListEmpty()){
+            this.io.emit('changeInAnimationList', this.animationService.animationList)
+            this.animationService.emptyAnimationList();
         }
     }
 

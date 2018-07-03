@@ -11,8 +11,8 @@ var dns_1 = require("dns");
  *
  */
 var GameService = /** @class */ (function () {
-    function GameService(soundService) {
-        this.gameLogicService = new game_logic_service_1.GameLogicService(soundService);
+    function GameService(soundService, animationSerivce) {
+        this.gameLogicService = new game_logic_service_1.GameLogicService(soundService, animationSerivce);
         this.gameState = this.createNewGame();
     }
     GameService.prototype.createNewGame = function () {

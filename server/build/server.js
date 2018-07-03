@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var animation_service_1 = require("./services/animation-service");
 var sound_service_1 = require("./services/sound.service");
 var game_service_1 = require("./services/game.service");
 var http_1 = require("http");
@@ -12,7 +13,8 @@ var GameServer = /** @class */ (function () {
         this.server = http_1.createServer(this.app);
         this.io = socketIo(this.server);
         this.soundService = new sound_service_1.SoundService();
-        this.gameService = new game_service_1.GameService(this.soundService);
+        this.animationService = new animation_service_1.AnimationService();
+        this.gameService = new game_service_1.GameService(this.soundService, this.animationService);
         this.listen();
     }
     GameServer.prototype.listen = function () {
@@ -47,6 +49,7 @@ var GameServer = /** @class */ (function () {
                 _this.io.emit('changeInGameState', "A change has happened in the gameState");
                 console.log("playing Card...");
                 _this.sendSoundPlayList();
+                _this.sendAnimationList();
             });
             socket.on('attackCard', function (data) {
                 console.log("An attackPlayer request came from a client");
@@ -87,6 +90,12 @@ var GameServer = /** @class */ (function () {
         if (!this.soundService.isPlayListEmpty()) {
             this.io.emit('changeInPlayList', this.soundService.playList);
             this.soundService.emptyPlayList();
+        }
+    };
+    GameServer.prototype.sendAnimationList = function () {
+        if (!this.animationService.isAnimationListEmpty()) {
+            this.io.emit('changeInAnimationList', this.animationService.animationList);
+            this.animationService.emptyAnimationList();
         }
     };
     GameServer.prototype.getApp = function () {
