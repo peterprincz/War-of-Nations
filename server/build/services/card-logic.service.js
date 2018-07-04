@@ -46,10 +46,16 @@ var CardLogicService = /** @class */ (function () {
             this.soundService.addToPlayList(defenderCard.getDeathSound());
             defenderPlayer.half.cards = defenderPlayer.half.cards.filter(function (x) { return x != defenderCard; });
         }
+        else {
+            this.animationService.addToAnimationList(defenderCard, "cardDamaged");
+        }
         if (attackerCard.health < 1) {
             attackerCard.onDeath(activePlayer, defenderPlayer);
             this.soundService.addToPlayList(attackerCard.getDeathSound());
             activePlayer.half.cards = activePlayer.half.cards.filter(function (x) { return x != attackerCard; });
+        }
+        else {
+            this.animationService.addToAnimationList(attackerCard, "cardDamaged");
         }
     };
     CardLogicService.prototype.attackPlayer = function (activePlayer, defenderPlayer, attackerCard) {

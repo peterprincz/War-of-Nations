@@ -64,6 +64,7 @@ var GameServer = /** @class */ (function () {
                 setTimeout(function () {
                     _this.gameService.attackCard(data.attackerCard, data.defenderCard);
                     _this.io.emit('changeInGameState', "A change has happened in the gameState");
+                    _this.sendAnimationList();
                     console.log("Attacking Card...");
                 }, 1000);
             });
@@ -80,6 +81,7 @@ var GameServer = /** @class */ (function () {
                 _this.sendAnimationList();
                 setTimeout(function () {
                     _this.gameService.attackEnemyPlayer(data.attackerCard);
+                    _this.sendAnimationList();
                     _this.io.emit('changeInGameState', "A change has happened in the gameState");
                 }, 1000);
             });

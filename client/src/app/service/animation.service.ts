@@ -25,6 +25,9 @@ export class AnimationService {
         if (animation.animation == 'attackPlayer') {
           card.hasJustAttackedPlayer = true;
         }
+        if (animation.animation == 'cardDamaged') {
+          card.hasJustGotDamaged = true;
+        }
       }, 100 );
     });
   }

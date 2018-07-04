@@ -38,6 +38,7 @@
             <div class="cardOnTable"
               [ngStyle]="getStyleForEnemyCard(card)"
               [@playCardAnimation]='card.hasJustPlayed'
+              [@cardDamagedAnimation]='card.hasJustGotDamaged'
               *ngFor="let card of dataService.gameState.playerTwo.half.cards"
               (click)="onEnemyCardClick(card)"
             >
@@ -81,6 +82,7 @@
             [@playCardAnimation]='card.hasJustPlayed'
             [@attackCardAnimation]='card.hasJustAttackedCard'
             [@attackPlayerAnimation]='card.hasJustAttackedPlayer'
+            [@cardDamagedAnimation]='card.hasJustGotDamaged'
           >
         <div class="row cardTopRow">
           <div class="col-xs-6"><div class="cardMana"><p class="text-left">{{card.mana}}</p></div></div>

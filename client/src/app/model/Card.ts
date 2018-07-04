@@ -24,6 +24,7 @@ export class Card {
   hasJustPulled: boolean;
   hasJustAttackedCard: boolean;
   hasJustAttackedPlayer: boolean;
+  hasJustGotDamaged: boolean;
 
   constructor(cardFromServer: any) {
     this.id = cardFromServer.id;

@@ -81,6 +81,7 @@ export class GameServer {
                 setTimeout(() => {
                     this.gameService.attackCard(data.attackerCard, data.defenderCard);
                     this.io.emit('changeInGameState', "A change has happened in the gameState");
+                    this.sendAnimationList();
                     console.log("Attacking Card...")
                 }, 1000)
             });
@@ -98,6 +99,7 @@ export class GameServer {
                 this.sendAnimationList();
                 setTimeout(() => {
                     this.gameService.attackEnemyPlayer(data.attackerCard);
+                    this.sendAnimationList();
                     this.io.emit('changeInGameState', "A change has happened in the gameState");
                 }, 1000)
             });

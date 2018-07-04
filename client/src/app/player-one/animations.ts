@@ -45,5 +45,11 @@ export const animations: any[] = [
       style({ transform: 'translateY(-360px)'}),
       animate(250)
     ])
+  ]),
+  trigger('cardDamagedAnimation', [
+    transition('* => true', [
+      style({ backgroundColor: 'red'}),
+      animate(250)
+    ])
   ])
 ];
