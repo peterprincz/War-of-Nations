@@ -57,6 +57,14 @@ export class SocketService {
     });
   }
 
+  public onChangeInAnimationList(): Observable<any> {
+    return new Observable<any>(observer => {
+      this.socket.on('changeInAnimationList', (data: any) =>
+        observer.next(data)
+      );
+    });
+  }
+
   public onWarningMessage(): Observable<string> {
     return new Observable<string>(observer => {
       this.socket.on('warningMessage', (data: string) => observer.next(data));

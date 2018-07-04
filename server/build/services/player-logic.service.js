@@ -8,7 +8,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  *
  */
 var PlayerLogicService = /** @class */ (function () {
-    function PlayerLogicService() {
+    function PlayerLogicService(animationService) {
+        this.animationService = animationService;
     }
     PlayerLogicService.prototype.isCardPlayableFromHand = function (activePlayer, passivePlayer, cardToPlay) {
         return cardToPlay.mana <= activePlayer.mana;
@@ -34,6 +35,7 @@ var PlayerLogicService = /** @class */ (function () {
             }
             if (player.hand.cards.length <= 8) {
                 player.hand.cards.push(player.deck[0]);
+                this.animationService.addToAnimationList(player.deck[0], "pullFromDeck");
             }
             player.deck.splice(0, 1);
         }

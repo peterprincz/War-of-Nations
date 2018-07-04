@@ -1,9 +1,11 @@
 import { SoundService } from './sound.service';
+import {Animation} from './animation.service';
 import { GameState } from './../model/GameState';
 import { Injectable } from '@angular/core';
 import { SocketService } from './SocketService';
 import { Card } from '../model/Card';
 import { Http } from '@angular/http';
+import { AnimationService } from './animation.service';
 
 export enum Event {CONNECT = 'connect', DISCONNECT = 'disconnect'}
 
@@ -14,7 +16,10 @@ export class DataService {
 
   gameState: GameState;
 
-  constructor(private socketService: SocketService, private http: Http, private soundService: SoundService) {
+  constructor(private socketService: SocketService,
+              private animationService: AnimationService,
+              private http: Http,
+              private soundService: SoundService) {
     this.gameState = GameState.getDummyGameState();
     this.setUpConnection();
     this.getNewGameStateFromServer();
@@ -41,6 +46,11 @@ export class DataService {
     this.socketService.onChangeInPlayList()
     .subscribe((data: string[]) => {
       this.soundService.playSounds(data);
+    });
+
+    this.socketService.onChangeInAnimationList()
+    .subscribe((data: Animation[]) => {
+      this.animationService.playAnimations(this.gameState, data);
     });
 
     this.socketService.onWarningMessage()

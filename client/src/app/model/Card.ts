@@ -20,6 +20,11 @@ export class Card {
   onDeathSound: string;
   onAttackSound: string;
   backgroundImageName: string;
+  hasJustPlayed: boolean;
+  hasJustPulled: boolean;
+  hasJustAttackedCard: boolean;
+  hasJustAttackedPlayer: boolean;
+  hasJustGotDamaged: boolean;
 
   constructor(cardFromServer: any) {
     this.id = cardFromServer.id;

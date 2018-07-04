@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var card_logic_service_1 = require("./card-logic.service");
 var player_logic_service_1 = require("./player-logic.service");
 var GameLogicService = /** @class */ (function () {
-    function GameLogicService(soundService) {
-        this.cardLogicService = new card_logic_service_1.CardLogicService(soundService);
-        this.playerLogicService = new player_logic_service_1.PlayerLogicService();
+    function GameLogicService(soundService, animationService) {
+        this.cardLogicService = new card_logic_service_1.CardLogicService(soundService, animationService);
+        this.playerLogicService = new player_logic_service_1.PlayerLogicService(animationService);
     }
     GameLogicService.prototype.pullStartingCards = function (playerOne, playerTwo, amount) {
         this.pullCardFromDeck(playerOne, amount);

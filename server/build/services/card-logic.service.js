@@ -8,14 +8,15 @@ var Olaszzsoldos_1 = require("../model/cards/Olaszzsoldos");
 var Lovasijasz_1 = require("../model/cards/Lovasijasz");
 /**
  *
- * Responsible for the communication between the Card and Card and between the Cards and the gameFlow
+ * Responsible for the communication between the Card and Card and between the Cards and the gameFlow and giving information to the animation and soundServices
  * Also connects the SoundService with the Cards
  * It has a makeCard factory method, this should always be used whenever creating a new Card, due to the unique ID generation stategy
  *
  */
 var CardLogicService = /** @class */ (function () {
-    function CardLogicService(soundService) {
+    function CardLogicService(soundService, animationService) {
         this.soundService = soundService;
+        this.animationService = animationService;
     }
     CardLogicService.prototype.onTurnEnd = function (activePlayer, passivePlayer, card) {
         card.onTurnEnd(activePlayer, passivePlayer);
@@ -29,6 +30,7 @@ var CardLogicService = /** @class */ (function () {
     CardLogicService.prototype.onPlayFromHand = function (activePlayer, passivePlayer, card) {
         card.onPlayFromHand(activePlayer, passivePlayer);
         this.soundService.addToPlayList(card.getPlaySound());
+        this.animationService.addToAnimationList(card, "playFormHand");
     };
     CardLogicService.prototype.isCardAbleToAttackEnemyCard = function (attackerCard, defenderCard) {
         return attackerCard.isAbleToAttackCard(defenderCard);
@@ -44,10 +46,16 @@ var CardLogicService = /** @class */ (function () {
             this.soundService.addToPlayList(defenderCard.getDeathSound());
             defenderPlayer.half.cards = defenderPlayer.half.cards.filter(function (x) { return x != defenderCard; });
         }
+        else {
+            this.animationService.addToAnimationList(defenderCard, "cardDamaged");
+        }
         if (attackerCard.health < 1) {
             attackerCard.onDeath(activePlayer, defenderPlayer);
             this.soundService.addToPlayList(attackerCard.getDeathSound());
             activePlayer.half.cards = activePlayer.half.cards.filter(function (x) { return x != attackerCard; });
+        }
+        else {
+            this.animationService.addToAnimationList(attackerCard, "cardDamaged");
         }
     };
     CardLogicService.prototype.attackPlayer = function (activePlayer, defenderPlayer, attackerCard) {

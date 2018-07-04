@@ -36,6 +36,7 @@
     <div class="col-md-8 col-md-offset-2 enemyHalf-wrapper">
            <div class="cardOnTable"
             [ngStyle]="getStyleForEnemyCard(card)"
+            [@playAnimation]='card.hasJustPlayed'
             *ngFor="let card of dataService.gameState.playerOne.half.cards"
             (click)="onEnemyCardClick(card)"
             >
@@ -81,6 +82,7 @@
           (mouseleave)="card.hovered=false"
           [@coolDownAnimation]='card.onCoolDown'
           [@selectedCard]='card == selectedCard'
+          [@playAnimation]='card.hasJustPlayed'
         >
         <div class="row cardTopRow">
           <div class="col-xs-6"><div class="cardMana"><p class="text-left">{{card.mana}}</p></div></div>

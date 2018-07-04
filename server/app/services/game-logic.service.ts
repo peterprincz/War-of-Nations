@@ -3,6 +3,7 @@ import { Card } from '../model/cards/Card';
 import { Player } from '../model/Player';
 import { CardLogicService } from './card-logic.service';
 import { PlayerLogicService } from './player-logic.service';
+import { AnimationService } from './animation-service';
 
 export class GameLogicService {
 
@@ -16,9 +17,9 @@ export class GameLogicService {
   cardLogicService: CardLogicService 
   playerLogicService: PlayerLogicService
 
-  constructor(soundService:SoundService) {
-    this.cardLogicService = new CardLogicService(soundService);
-    this.playerLogicService = new PlayerLogicService();
+  constructor(soundService:SoundService, animationService:AnimationService) {
+    this.cardLogicService = new CardLogicService(soundService, animationService);
+    this.playerLogicService = new PlayerLogicService(animationService);
    }
 
    pullStartingCards(playerOne: Player, playerTwo: Player, amount:number): void{

@@ -1,3 +1,4 @@
+import { AnimationService } from './animation-service';
 import { SoundService } from './sound.service';
 import { Card } from '../model/cards/Card';
 import { Player } from '../model/Player';
@@ -11,10 +12,10 @@ import { Lovasijasz } from '../model/cards/Lovasijasz';
 
 /**
  * 
- * Responsible for the communication between the Card and Card and between the Cards and the gameFlow
+ * Responsible for the communication between the Card and Card and between the Cards and the gameFlow and giving information to the animation and soundServices
  * Also connects the SoundService with the Cards
  * It has a makeCard factory method, this should always be used whenever creating a new Card, due to the unique ID generation stategy
- *    
+ * 
  */
 
 
@@ -23,9 +24,11 @@ export class CardLogicService {
   static cardId:number = 0;
 
   soundService: SoundService;
+  animationService: AnimationService;
 
-  constructor(soundService: SoundService) { 
+  constructor(soundService: SoundService, animationService:AnimationService) { 
     this.soundService = soundService;
+    this.animationService = animationService;
   }
 
   onTurnEnd(activePlayer:Player, passivePlayer:Player, card:Card): void{
@@ -43,6 +46,7 @@ export class CardLogicService {
   onPlayFromHand(activePlayer:Player, passivePlayer:Player, card:Card){
     card.onPlayFromHand(activePlayer, passivePlayer);
     this.soundService.addToPlayList(card.getPlaySound());
+    this.animationService.addToAnimationList(card, "playFormHand")
   }
 
   isCardAbleToAttackEnemyCard(attackerCard:Card, defenderCard:Card) : boolean {
@@ -60,11 +64,15 @@ export class CardLogicService {
       defenderCard.onDeath(activePlayer, defenderPlayer);
       this.soundService.addToPlayList(defenderCard.getDeathSound());
       defenderPlayer.half.cards = defenderPlayer.half.cards.filter(x => x != defenderCard);
+    } else {
+      this.animationService.addToAnimationList(defenderCard, "cardDamaged");
     }
     if(attackerCard.health < 1){
       attackerCard.onDeath(activePlayer, defenderPlayer);
       this.soundService.addToPlayList(attackerCard.getDeathSound());
       activePlayer.half.cards = activePlayer.half.cards.filter(x => x != attackerCard);
+    } else {
+      this.animationService.addToAnimationList(attackerCard, "cardDamaged");
     }
   }
 

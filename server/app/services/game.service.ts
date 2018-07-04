@@ -4,6 +4,7 @@ import { Card } from "../model/cards/Card";
 import { Player } from "../model/Player";
 import { GameLogicService } from "./game-logic.service";
 import { NOTFOUND } from 'dns';
+import { AnimationService } from './animation-service';
 
 /**
  * 
@@ -17,8 +18,8 @@ export class GameService {
   gameState: GameState;
   gameLogicService: GameLogicService;
 
-  constructor(soundService: SoundService) {
-    this.gameLogicService = new GameLogicService(soundService);
+  constructor(soundService: SoundService, animationSerivce:AnimationService) {
+    this.gameLogicService = new GameLogicService(soundService, animationSerivce);
     this.gameState = this.createNewGame();
   }
 

@@ -1,10 +1,11 @@
 import { Component} from '@angular/core';
 import { DataService } from './../service/data.service';
 import { Card } from '../model/Card';
-import { trigger, style, state } from '@angular/animations';
+import { trigger, style, state, transition, animate, keyframes } from '@angular/animations';
 import { Player } from '../model/Player';
 import 'rxjs/add/operator/map';
 import { StyleService } from '../service/style.service';
+import { animations } from '../player-one/animations'
 
 
 
@@ -12,25 +13,8 @@ import { StyleService } from '../service/style.service';
   selector: 'app-player-one',
   templateUrl: './player-one.component.html',
   styleUrls: ['../css/board.css', '../css/card.css'],
-  animations: [
-    trigger('hoverAnimation', [
-      state('true', style({
-        transform: 'scale(1.4) translate(0px, -70px)',
-        zIndex: 4000
-      })),
-      state('false', style({
-        transform: 'scale(1.0)'
-      })),
-    ]),
-    trigger('coolDownAnimation', [
-      state('false', style ({ animationName: 'notOnCoolDown', animationDuration: '6s', animationIterationCount: 'infinite'}))
-    ]),
-    trigger('selectedCardAnimation', [
-      state('true', style ({
-        transform: 'scale(1.2)',
-        zIndex: 4000}))
-      ])
-  ]})
+  animations: animations
+})
 export class PlayerOneComponent {
 
   selectedCard: Card;

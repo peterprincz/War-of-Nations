@@ -1,5 +1,6 @@
 import { Player } from '../model/Player';
 import { Card } from '../model/cards/Card';
+import { AnimationService } from './animation-service';
 
 
 /**
@@ -12,7 +13,13 @@ import { Card } from '../model/cards/Card';
 
 export class PlayerLogicService {
 
-  constructor() { }
+  animationService :AnimationService;
+
+  constructor(animationService: AnimationService) { 
+
+    this.animationService = animationService;
+
+  }
 
 
   isCardPlayableFromHand(activePlayer:Player, passivePlayer:Player, cardToPlay:Card): boolean{
@@ -43,6 +50,7 @@ export class PlayerLogicService {
       }
       if(player.hand.cards.length <= 8){
         player.hand.cards.push(player.deck[0]);
+        this.animationService.addToAnimationList(player.deck[0], "pullFromDeck")
       }
       player.deck.splice(0, 1);
     }
