@@ -14,19 +14,19 @@ export class AnimationService {
       setTimeout(() => {
         let card: Card = this.findCard(gameState, animation.card);
         if (animation.animation == 'playFormHand') {
-          card.hasJustPlayed = true;
+          card.animations.hasJustPlayed = true;
         }
         if (animation.animation == 'pullFromDeck') {
-          card.hasJustPulled = true;
+          card.animations.hasJustPulled = true;
         }
         if (animation.animation == 'attackCard') {
-          card.hasJustAttackedCard = true;
+          card.animations.hasJustAttackedCard = true;
         }
         if (animation.animation == 'attackPlayer') {
-          card.hasJustAttackedPlayer = true;
+          card.animations.hasJustAttackedPlayer = true;
         }
         if (animation.animation == 'cardDamaged') {
-          card.hasJustGotDamaged = true;
+          card.animations.hasJustGotDamaged = true;
         }
       }, 100 );
     });
