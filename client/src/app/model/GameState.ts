@@ -22,4 +22,22 @@ export class GameState {
     }
 
 
+  getRealCardFromJson(cardFromJson: Card): Card {
+    let realCard: Card = this.playerOne.half.cards.filter(x => cardFromJson.id == x.id)[0];
+    if (realCard) { return realCard; }
+    realCard = this.playerOne.hand.cards.filter(x => cardFromJson.id == x.id)[0];
+    if (realCard) { return realCard; }
+    realCard = this.playerOne.deck.filter(x => cardFromJson.id == x.id)[0];
+    if (realCard) { return realCard; }
+    realCard = this.playerTwo.half.cards.filter(x => cardFromJson.id == x.id)[0];
+    if (realCard) { return realCard; }
+    realCard = this.playerTwo.deck.filter(x => cardFromJson.id == x.id)[0];
+    if (realCard) { return realCard; }
+    realCard = this.playerTwo.hand.cards.filter(x => cardFromJson.id == x.id)[0];
+    return realCard;
+  }
+
+
+
+
 }

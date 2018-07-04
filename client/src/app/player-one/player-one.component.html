@@ -79,10 +79,10 @@
             (mouseenter)="card.hovered=true"
             [@coolDownAnimation]='card.onCoolDown'
             [@selectedCardAnimation]='card == selectedCard'
-            [@playCardAnimation]='card.hasJustPlayed'
-            [@attackCardAnimation]='card.hasJustAttackedCard'
-            [@attackPlayerAnimation]='card.hasJustAttackedPlayer'
-            [@cardDamagedAnimation]='card.hasJustGotDamaged'
+            [@playCardAnimation]='card.animations.hasJustPlayed'
+            [@attackCardAnimation]='card.animations.hasJustAttackedCard'
+            [@attackPlayerAnimation]='card.animations.hasJustAttackedPlayer'
+            [@cardDamagedAnimation]='card.animations.hasJustGotDamaged'
           >
         <div class="row cardTopRow">
           <div class="col-xs-6"><div class="cardMana"><p class="text-left">{{card.mana}}</p></div></div>
@@ -133,11 +133,11 @@
         <div class="contianer-fluid cardInHand"
                   *ngFor="let card of dataService.gameState.playerOne.hand.cards"
                   [ngStyle]="getStyleForMyCard(card)"
-                  [@hoverAnimation]="card.hovered"
-                  [@pullCardAnimation]='card.hasJustPulled'
+                  [@hoverAnimation]="card.animations.hovered"
+                  [@pullCardAnimation]='card.animations.hasJustPulled'
                   (dragstart)="dragMyCard($event, card)"
-                  (mouseenter)="card.hovered=true"
-                  (mouseleave)="card.hovered=false"
+                  (mouseenter)="card.animations.hovered=true"
+                  (mouseleave)="card.animations.hovered=false"
                   (dragover)="onDragOver($event)"
                   draggable="true"
         >

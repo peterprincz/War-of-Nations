@@ -12,36 +12,27 @@ export class AnimationService {
   playAnimations(gameState: GameState, animations: Animation[]) {
     animations.forEach(animation => {
       setTimeout(() => {
-        let card: Card = this.findCard(gameState, animation.card);
-        if (animation.animation == 'playFormHand') {
+        // tslint:disable-next-line:prefer-const
+        let card: Card = gameState.getRealCardFromJson(animation.card);
+        if (animation.animation === 'playFormHand') {
           card.animations.hasJustPlayed = true;
         }
-        if (animation.animation == 'pullFromDeck') {
+        if (animation.animation === 'pullFromDeck') {
           card.animations.hasJustPulled = true;
         }
-        if (animation.animation == 'attackCard') {
+        if (animation.animation === 'attackCard') {
           card.animations.hasJustAttackedCard = true;
         }
-        if (animation.animation == 'attackPlayer') {
+        if (animation.animation === 'attackPlayer') {
           card.animations.hasJustAttackedPlayer = true;
         }
-        if (animation.animation == 'cardDamaged') {
+        if (animation.animation === 'cardDamaged') {
           card.animations.hasJustGotDamaged = true;
         }
       }, 100 );
     });
   }
 
-  findCard(gameState:  GameState, card: Card): Card {
-    let realCard: Card = gameState.playerOne.half.cards.filter(x => card.id == x.id)[0];
-    if (realCard) { return realCard; }
-    realCard = gameState.playerOne.hand.cards.filter(x => card.id == x.id)[0];
-    if (realCard) { return realCard; }
-    realCard = gameState.playerTwo.half.cards.filter(x => card.id == x.id)[0];
-    if (realCard) { return realCard; }
-    realCard = gameState.playerTwo.hand.cards.filter(x => card.id == x.id)[0];
-    return realCard;
-  }
 
 }
 
