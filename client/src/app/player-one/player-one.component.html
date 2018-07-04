@@ -3,7 +3,7 @@
       <div class="myHand">
         <div class="col-md-8 col-md-offset-2">
           <div *ngFor="let card of dataService.gameState.playerTwo.hand.cards"
-                [@pullCardAnimation]='card.hasJustPulled'
+                [@pullCardAnimation]='card.animations.hasJustPulled'
                 class="enemyCard">
             <div class="cardContainer">
             </div>
