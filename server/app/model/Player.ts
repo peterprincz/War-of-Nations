@@ -27,8 +27,4 @@ export class Player{
   onAttacked(card: Card) {
     this.health -= card.attack;
   }
-
-  getRealCardFromJson(cardFromJson: Card){
-    
-  }
 }

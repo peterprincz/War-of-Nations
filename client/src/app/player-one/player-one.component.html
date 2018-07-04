@@ -37,8 +37,8 @@
     <div class="col-md-8 col-md-offset-2 enemyHalf-wrapper">
             <div class="cardOnTable"
               [ngStyle]="getStyleForEnemyCard(card)"
-              [@playCardAnimation]='card.hasJustPlayed'
-              [@cardDamagedAnimation]='card.hasJustGotDamaged'
+              [@playCardAnimation]='card.animations.hasJustPlayed'
+              [@cardDamagedAnimation]='card.animations.hasJustGotDamaged'
               *ngFor="let card of dataService.gameState.playerTwo.half.cards"
               (click)="onEnemyCardClick(card)"
             >

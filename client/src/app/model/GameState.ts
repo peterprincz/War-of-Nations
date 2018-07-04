@@ -37,7 +37,4 @@ export class GameState {
     return realCard;
   }
 
-
-
-
 }
