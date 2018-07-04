@@ -11,17 +11,33 @@ export class AnimationService {
 
   playAnimations(gameState: GameState, animations: Animation[]) {
     animations.forEach(animation => {
-      console.log(animation);
       setTimeout(() => {
-        let card: Card = gameState.playerOne.half.cards.filter(x => animation.card.id == x.id)[0];
-        if (card) {
-          card.hasJustPlayed = true;
-        } else {
-          card = gameState.playerTwo.half.cards.filter(x => animation.card.id == x.id)[0];
+        let card: Card = this.findCard(gameState, animation.card);
+        if (animation.animation == 'playFormHand') {
           card.hasJustPlayed = true;
         }
-      }, 10);
+        if (animation.animation == 'pullFromDeck') {
+          card.hasJustPulled = true;
+        }
+        if (animation.animation == 'attackCard') {
+          card.hasJustAttackedCard = true;
+        }
+        if (animation.animation == 'attackPlayer') {
+          card.hasJustAttackedPlayer = true;
+        }
+      }, 100 );
     });
+  }
+
+  findCard(gameState:  GameState, card: Card): Card {
+    let realCard: Card = gameState.playerOne.half.cards.filter(x => card.id == x.id)[0];
+    if (realCard) { return realCard; }
+    realCard = gameState.playerOne.hand.cards.filter(x => card.id == x.id)[0];
+    if (realCard) { return realCard; }
+    realCard = gameState.playerTwo.half.cards.filter(x => card.id == x.id)[0];
+    if (realCard) { return realCard; }
+    realCard = gameState.playerTwo.hand.cards.filter(x => card.id == x.id)[0];
+    return realCard;
   }
 
 }

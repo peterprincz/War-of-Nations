@@ -2,7 +2,9 @@
   <div class="row">
       <div class="myHand">
         <div class="col-md-8 col-md-offset-2">
-          <div *ngFor="let card of dataService.gameState.playerTwo.hand.cards" class="enemyCard">
+          <div *ngFor="let card of dataService.gameState.playerTwo.hand.cards"
+                [@pullCardAnimation]='card.hasJustPulled'
+                class="enemyCard">
             <div class="cardContainer">
             </div>
         </div>
@@ -35,7 +37,7 @@
     <div class="col-md-8 col-md-offset-2 enemyHalf-wrapper">
             <div class="cardOnTable"
               [ngStyle]="getStyleForEnemyCard(card)"
-              [@playAnimation]='card.hasJustPlayed'
+              [@playCardAnimation]='card.hasJustPlayed'
               *ngFor="let card of dataService.gameState.playerTwo.half.cards"
               (click)="onEnemyCardClick(card)"
             >
@@ -76,7 +78,9 @@
             (mouseenter)="card.hovered=true"
             [@coolDownAnimation]='card.onCoolDown'
             [@selectedCardAnimation]='card == selectedCard'
-            [@playAnimation]='card.hasJustPlayed'
+            [@playCardAnimation]='card.hasJustPlayed'
+            [@attackCardAnimation]='card.hasJustAttackedCard'
+            [@attackPlayerAnimation]='card.hasJustAttackedPlayer'
           >
         <div class="row cardTopRow">
           <div class="col-xs-6"><div class="cardMana"><p class="text-left">{{card.mana}}</p></div></div>
@@ -128,6 +132,7 @@
                   *ngFor="let card of dataService.gameState.playerOne.hand.cards"
                   [ngStyle]="getStyleForMyCard(card)"
                   [@hoverAnimation]="card.hovered"
+                  [@pullCardAnimation]='card.hasJustPulled'
                   (dragstart)="dragMyCard($event, card)"
                   (mouseenter)="card.hovered=true"
                   (mouseleave)="card.hovered=false"

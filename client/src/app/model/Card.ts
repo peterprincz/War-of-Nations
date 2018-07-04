@@ -21,6 +21,9 @@ export class Card {
   onAttackSound: string;
   backgroundImageName: string;
   hasJustPlayed: boolean;
+  hasJustPulled: boolean;
+  hasJustAttackedCard: boolean;
+  hasJustAttackedPlayer: boolean;
 
   constructor(cardFromServer: any) {
     this.id = cardFromServer.id;

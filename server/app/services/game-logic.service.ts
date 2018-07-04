@@ -19,7 +19,7 @@ export class GameLogicService {
 
   constructor(soundService:SoundService, animationService:AnimationService) {
     this.cardLogicService = new CardLogicService(soundService, animationService);
-    this.playerLogicService = new PlayerLogicService();
+    this.playerLogicService = new PlayerLogicService(animationService);
    }
 
    pullStartingCards(playerOne: Player, playerTwo: Player, amount:number): void{

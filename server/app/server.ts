@@ -4,6 +4,7 @@ import { GameService } from './services/game.service';
 import { createServer, Server } from 'http';
 import express = require('express');
 import socketIo = require('socket.io');
+import { TIMEOUT } from 'dns';
 
 export class GameServer {
 
@@ -11,7 +12,7 @@ export class GameServer {
     soundService: SoundService;
     animationService: AnimationService;
 
-    static readonly PORT:number = 8080;
+    static PORT:number = 8080;
     app: express.Application;
     server: Server;
     io: SocketIO.Server;
@@ -73,10 +74,15 @@ export class GameServer {
                     this.io.emit('warningMessage', "you cant attack that Card")
                     return;
                 }
-                this.gameService.attackCard(data.attackerCard, data.defenderCard);
-                this.io.emit('changeInGameState', "A change has happened in the gameState");
-                console.log("Attacking Card...")
+                this.animationService.addToAnimationList(data.attackerCard, "attackCard")
                 this.sendSoundPlayList();
+                this.sendAnimationList();
+                // Waiting for the animations for finish before removing dead cards
+                setTimeout(() => {
+                    this.gameService.attackCard(data.attackerCard, data.defenderCard);
+                    this.io.emit('changeInGameState', "A change has happened in the gameState");
+                    console.log("Attacking Card...")
+                }, 1000)
             });
 
             socket.on('attackPlayer', (data: any) => {
@@ -86,16 +92,21 @@ export class GameServer {
                     this.io.emit('warningMessage', "you cant attack the Hero")
                     return;
                 }
-                this.gameService.attackEnemyPlayer(data.attackerCard);
-                this.io.emit('changeInGameState', "A change has happened in the gameState");
-                console.log("Attacking Player...");
+                // Waiting for the animations for finish before removing dead cards
+                this.animationService.addToAnimationList(data.attackerCard, "attackPlayer")
                 this.sendSoundPlayList();
+                this.sendAnimationList();
+                setTimeout(() => {
+                    this.gameService.attackEnemyPlayer(data.attackerCard);
+                    this.io.emit('changeInGameState', "A change has happened in the gameState");
+                }, 1000)
             });
 
             socket.on('endRound', (data:any) => {
                 console.log("An endRound request came from a client");
                 this.gameService.endRound();
                 console.log("Ending round...");
+                this.sendAnimationList();
                 this.io.emit('changeInGameState', "A change has happened in the gameState");
             });
 

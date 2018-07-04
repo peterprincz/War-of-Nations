@@ -5,6 +5,7 @@ import { trigger, style, state, transition, animate, keyframes } from '@angular/
 import { Player } from '../model/Player';
 import 'rxjs/add/operator/map';
 import { StyleService } from '../service/style.service';
+import { animations } from '../player-one/animations'
 
 
 
@@ -12,34 +13,8 @@ import { StyleService } from '../service/style.service';
   selector: 'app-player-one',
   templateUrl: './player-one.component.html',
   styleUrls: ['../css/board.css', '../css/card.css'],
-  animations: [
-    trigger('hoverAnimation', [
-      state('true', style({
-        transform: 'scale(1.4) translate(0px, -70px)',
-        zIndex: 4000
-      })),
-      state('false', style({
-        transform: 'scale(1.0)'
-      })),
-    ]),
-    trigger('coolDownAnimation', [
-      state('false', style ({ animationName: 'notOnCoolDown', animationDuration: '6s', animationIterationCount: 'infinite'}))
-    ]),
-    trigger('playAnimation', [
-      transition('* => true', [
-        animate(300, keyframes([
-          style({offset: 0, transform: "scale(1.5)", filter: "blur(2px)"}),
-          style({offset: 0.5, transform: "scale(1.3)", filter: "blur(1px)"}),
-          style({offset: 1, transform: "scale(1.0)"})
-        ]))
-      ]),
-    ]),
-    trigger('selectedCardAnimation', [
-      state('true', style ({
-        transform: 'scale(1.2)',
-        zIndex: 4000}))
-      ])
-  ]})
+  animations: animations
+})
 export class PlayerOneComponent {
 
   selectedCard: Card;
