@@ -8,8 +8,8 @@ export class SoundService {
   constructor() { }
 
   playSounds(sounds: string[]) {
-    let player: any = new Audio();
     sounds.forEach(sound => {
+      let player: any = new Audio();
       player.src = sound;
       player.play();
     });

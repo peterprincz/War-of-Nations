@@ -58,13 +58,13 @@ var GameServer = /** @class */ (function () {
                     return;
                 }
                 _this.animationService.addToAnimationList(data.attackerCard, "attackCard");
-                _this.sendSoundPlayList();
                 _this.sendAnimationList();
                 // Waiting for the animations for finish before removing dead cards
                 setTimeout(function () {
                     _this.gameService.attackCard(data.attackerCard, data.defenderCard);
                     _this.io.emit('changeInGameState', "A change has happened in the gameState");
                     _this.sendAnimationList();
+                    _this.sendSoundPlayList();
                     console.log("Attacking Card...");
                 }, 1000);
             });
@@ -77,10 +77,10 @@ var GameServer = /** @class */ (function () {
                 }
                 // Waiting for the animations for finish before removing dead cards
                 _this.animationService.addToAnimationList(data.attackerCard, "attackPlayer");
-                _this.sendSoundPlayList();
                 _this.sendAnimationList();
                 setTimeout(function () {
                     _this.gameService.attackEnemyPlayer(data.attackerCard);
+                    _this.sendSoundPlayList();
                     _this.sendAnimationList();
                     _this.io.emit('changeInGameState', "A change has happened in the gameState");
                 }, 1000);

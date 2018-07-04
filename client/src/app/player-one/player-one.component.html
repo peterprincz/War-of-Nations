@@ -39,6 +39,8 @@
               [ngStyle]="getStyleForEnemyCard(card)"
               [@playCardAnimation]='card.animations.hasJustPlayed'
               [@cardDamagedAnimation]='card.animations.hasJustGotDamaged'
+              [@enemyAttackCardAnimation]='card.animations.hasJustAttackedCard'
+              [@enemyAttackPlayerAnimation]='card.animations.hasJustAttackedPlayer'
               *ngFor="let card of dataService.gameState.playerTwo.half.cards"
               (click)="onEnemyCardClick(card)"
             >

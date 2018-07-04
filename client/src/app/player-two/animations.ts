@@ -46,6 +46,18 @@ export const animations: any[] = [
       animate(250)
     ])
   ]),
+  trigger('enemyAttackCardAnimation', [
+    transition('* => true', [
+      style({ transform: 'translateY(180px)'}),
+      animate(250)
+    ])
+  ]),
+  trigger('enemyAttackPlayerAnimation', [
+    transition('* => true', [
+      style({ transform: 'translateY(360px)'}),
+      animate(250)
+    ])
+  ]),
   trigger('cardDamagedAnimation', [
     transition('* => true', [
       style({ backgroundColor: 'red'}),

@@ -55,7 +55,7 @@ export class DataService {
 
     this.socketService.onWarningMessage()
     .subscribe((data: string) => {
-      console.log(data);
+      alert(data);
     });
 
     this.socketService.onEvent(Event.CONNECT)

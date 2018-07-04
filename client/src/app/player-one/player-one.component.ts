@@ -38,11 +38,6 @@ export class PlayerOneComponent {
     }
     const cardFromEvent = JSON.parse(event.dataTransfer.getData('card'));
     this.dataService.playCardFromHand(cardFromEvent);
-    // if (this.gameService.isCardPlayAbleFromHand(cardFromEvent)) {
-    //   this.gameService.PlayFromHand(cardFromEvent);
-    // } else {
-    //   alert('You dont have enough mana');
-    // }
   }
 
   onCardClick(card: Card) {
@@ -58,10 +53,8 @@ export class PlayerOneComponent {
   }
 
   onEnemyCardClick(enemyCard: Card) {
-    if (this.selectedCard == null) {alert('You need to select a card'); return; }
-    if (!this.dataService.gameState.playerOne.isActive) {alert('It\'s not your round'); return; }
-    if (!enemyCard.hasTaunt && this.dataService.gameState.playerTwo.half.cards.filter(x => x.hasTaunt).length > 0) {
-      alert('There is a card with a taunt');
+    if (this.selectedCard == null) {
+      alert('You need to select a card');
       return;
     }
     this.dataService.attackCard(this.selectedCard, enemyCard);
@@ -76,13 +69,6 @@ export class PlayerOneComponent {
       alert('You need to select a Card');
       return;
     }
-    if (this.dataService.gameState.playerTwo.half.cards.filter(x => x.hasTaunt).length > 0) {
-      alert('There is a card with a taunt');
-      return;
-    }
-    // if (!this.gameService.isCardAbleToAttackEnemyPlayer(this.selectedCard, this.enemyPlayer)) {
-    //   alert('You cant attack the hero Now');
-    //   return;
     this.dataService.attackPlayer(this.selectedCard);
   }
 

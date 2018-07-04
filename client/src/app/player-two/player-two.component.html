@@ -40,6 +40,8 @@
               [ngStyle]="getStyleForEnemyCard(card)"
               [@playCardAnimation]='card.animations.hasJustPlayed'
               [@cardDamagedAnimation]='card.animations.hasJustGotDamaged'
+              [@enemyAttackCardAnimation]='card.animations.hasJustAttackedCard'
+              [@enemyAttackPlayerAnimation]='card.animations.hasJustAttackedPlayer'
               (click)="onEnemyCardClick(card)"
             >
             <div class="row cardTopRow">
