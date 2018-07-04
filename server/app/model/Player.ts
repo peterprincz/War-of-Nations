@@ -24,7 +24,6 @@ export class Player{
     this.isActive = false;
   }
 
-  
   onAttacked(card: Card) {
     this.health -= card.attack;
   }

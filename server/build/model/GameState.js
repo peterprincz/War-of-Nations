@@ -27,6 +27,30 @@ var GameState = /** @class */ (function () {
             this.playerTwo.isActive = false;
         }
     };
+    GameState.prototype.getRealCardFromJson = function (cardFromJson) {
+        var realCard = this.playerOne.half.cards.filter(function (x) { return cardFromJson.id == x.id; })[0];
+        if (realCard) {
+            return realCard;
+        }
+        realCard = this.playerOne.hand.cards.filter(function (x) { return cardFromJson.id == x.id; })[0];
+        if (realCard) {
+            return realCard;
+        }
+        realCard = this.playerOne.deck.filter(function (x) { return cardFromJson.id == x.id; })[0];
+        if (realCard) {
+            return realCard;
+        }
+        realCard = this.playerTwo.half.cards.filter(function (x) { return cardFromJson.id == x.id; })[0];
+        if (realCard) {
+            return realCard;
+        }
+        realCard = this.playerTwo.deck.filter(function (x) { return cardFromJson.id == x.id; })[0];
+        if (realCard) {
+            return realCard;
+        }
+        realCard = this.playerTwo.hand.cards.filter(function (x) { return cardFromJson.id == x.id; })[0];
+        return realCard;
+    };
     return GameState;
 }());
 exports.GameState = GameState;

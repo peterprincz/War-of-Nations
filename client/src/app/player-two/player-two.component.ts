@@ -5,40 +5,16 @@ import { trigger, style, state, transition, animate, keyframes } from '@angular/
 import { Player } from '../model/Player';
 import 'rxjs/add/operator/map';
 import { StyleService } from '../service/style.service';
+import { animations } from '../player-two/animations';
+
 
 
 @Component({
   selector: 'app-player-two',
   templateUrl: './player-two.component.html',
   styleUrls: ['../css/board.css', '../css/card.css'],
-  animations: [
-    trigger('hoverAnimation', [
-      state('true', style({
-        transform: 'scale(1.4) translate(0px, -70px)',
-        zIndex: 4000
-      })),
-      state('false', style({
-        transform: 'scale(1.0)'
-      })),
-    ]),
-    trigger('coolDownAnimation', [
-      state('false', style ({ animationName: 'notOnCoolDown', animationDuration: '6s', animationIterationCount: 'infinite'}))
-    ]),
-    trigger('playAnimation', [
-      transition('* => true', [
-        animate(300, keyframes([
-          style({offset: 0, transform: "scale(1.5)", filter: "blur(2px)"}),
-          style({offset: 0.5, transform: "scale(1.3)", filter: "blur(1px)"}),
-          style({offset: 1, transform: "scale(1.0)"})
-        ]))
-      ]),
-    ]),
-    trigger('selectedCard', [
-      state('true', style ({
-        transform: 'scale(1.2)',
-        zIndex: 4000}))
-    ])
-  ]})
+  animations: animations
+})
 export class PlayerTwoComponent {
   selectedCard: Card;
 
@@ -61,11 +37,6 @@ export class PlayerTwoComponent {
     }
     const cardFromEvent = JSON.parse(event.dataTransfer.getData('card'));
     this.dataService.playCardFromHand(cardFromEvent);
-    // if (this.gameService.isCardPlayAbleFromHand(cardFromEvent)) {
-    //   this.gameService.PlayFromHand(cardFromEvent);
-    // } else {
-    //   alert('You dont have enough mana');
-    // }
   }
 
   onCardClick(card: Card) {
@@ -89,10 +60,6 @@ export class PlayerTwoComponent {
       alert('It\'s not your round');
       return;
     }
-    if (!enemyCard.hasTaunt && this.dataService.gameState.playerTwo.half.cards.filter(x => x.hasTaunt).length > 0) {
-      alert('There is a card with a taunt');
-      return;
-    }
     this.dataService.attackCard(this.selectedCard, enemyCard);
   }
 
@@ -105,13 +72,6 @@ export class PlayerTwoComponent {
       alert('You need to select a Card');
       return;
     }
-    if (this.dataService.gameState.playerOne.half.cards.filter(x => x.hasTaunt).length > 0) {
-      alert('There is a card with a taunt');
-      return;
-    }
-    // if (!this.gameService.isCardAbleToAttackEnemyPlayer(this.selectedCard, this.enemyPlayer)) {
-    //   alert('You cant attack the hero Now');
-    //   return;
     this.dataService.attackPlayer(this.selectedCard);
   }
 

@@ -45,56 +45,34 @@ export class GameService {
   }
 
   isCardPlayAbleFromHand(cardToPlay: Card):boolean {
-    let realCard: Card = this.getRealCardFromJson(cardToPlay)
+    let realCard: Card = this.gameState.getRealCardFromJson(cardToPlay)
     return this.gameLogicService.isCardPlayableFromHand(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer(), realCard);
   }
 
   isCardAbleToAttackEnemyCard(attackerCard:Card, defenderCard:Card):boolean{
-    let realAttackerCard: Card = this.getRealCardFromJson(attackerCard)
+    let realAttackerCard: Card = this.gameState.getRealCardFromJson(attackerCard)
     return this.gameLogicService.isCardAbleToAttackEnemyCard(realAttackerCard, defenderCard)
   }
 
   isCardAbleToAttackEnemyPlayer(attackerCard:Card):boolean {
-    let realAttackerCard: Card = this.getRealCardFromJson(attackerCard)
+    let realAttackerCard: Card = this.gameState.getRealCardFromJson(attackerCard)
     return this.gameLogicService.isCardAbleToAttackEnemyPlayer(realAttackerCard, this.gameState.getPassivePlayer())
   }
 
   PlayFromHand(card:Card):void {
-    let realCard = this.getRealCardFromJson(card);
+    let realCard = this.gameState.getRealCardFromJson(card);
     this.gameLogicService.playFromHand(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer(), realCard);
   }
 
   attackCard(attackerCard: Card, defenderCard: Card) {
-    let realAttackerCard: Card = this.getRealCardFromJson(attackerCard)
-    let realDefenderCard: Card = this.getRealCardFromJson(defenderCard);
+    let realAttackerCard: Card = this.gameState.getRealCardFromJson(attackerCard)
+    let realDefenderCard: Card = this.gameState.getRealCardFromJson(defenderCard);
     this.gameLogicService.attackCard(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer(), realAttackerCard, realDefenderCard);
   }
 
   attackEnemyPlayer(card: Card) {
-    let realCard = this.getRealCardFromJson(card);
+    let realCard = this.gameState.getRealCardFromJson(card);
     this.gameLogicService.attackPlayer(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer(), realCard);
-  }
-
-  getRealCardFromJson(card: Card): Card {
-    if(this.gameState.playerOne.deck.filter(realCard => realCard.id == card.id).length == 1) {
-      return this.gameState.playerOne.deck.filter(realCard => realCard.id == card.id)[0];
-    }
-    if(this.gameState.playerOne.half.cards.filter(realCard => realCard.id == card.id).length == 1) {
-      return this.gameState.playerOne.half.cards.filter(realCard => realCard.id == card.id)[0];
-    }
-    if(this.gameState.playerOne.hand.cards.filter(realCard => realCard.id == card.id).length == 1) {
-      return this.gameState.playerOne.hand.cards.filter(realCard => realCard.id == card.id)[0];
-    }
-    if(this.gameState.playerTwo.deck.filter(realCard => realCard.id == card.id).length == 1) {
-      return this.gameState.playerTwo.deck.filter(realCard => realCard.id == card.id)[0];
-    }
-    if(this.gameState.playerTwo.half.cards.filter(realCard => realCard.id == card.id).length == 1) {
-      return this.gameState.playerTwo.half.cards.filter(realCard => realCard.id == card.id)[0];
-    }
-    if(this.gameState.playerTwo.hand.cards.filter(realCard => realCard.id == card.id).length == 1) {
-      return this.gameState.playerTwo.hand.cards.filter(realCard => realCard.id == card.id)[0];
-    }
-    throw NOTFOUND;
   }
 
   swapPlayers() {

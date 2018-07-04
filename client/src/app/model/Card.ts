@@ -20,11 +20,7 @@ export class Card {
   onDeathSound: string;
   onAttackSound: string;
   backgroundImageName: string;
-  hasJustPlayed: boolean;
-  hasJustPulled: boolean;
-  hasJustAttackedCard: boolean;
-  hasJustAttackedPlayer: boolean;
-  hasJustGotDamaged: boolean;
+  animations: any;
 
   constructor(cardFromServer: any) {
     this.id = cardFromServer.id;
@@ -44,6 +40,7 @@ export class Card {
     this.onDeathSound = cardFromServer.onDeathSound;
     this.onAttackSound = cardFromServer.onAttackSound;
     this.soundFolderLocation = cardFromServer.soundFolderLocation;
+    this.animations = {};
   }
 
 

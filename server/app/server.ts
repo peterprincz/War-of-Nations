@@ -75,15 +75,15 @@ export class GameServer {
                     return;
                 }
                 this.animationService.addToAnimationList(data.attackerCard, "attackCard")
-                this.sendSoundPlayList();
                 this.sendAnimationList();
                 // Waiting for the animations for finish before removing dead cards
                 setTimeout(() => {
                     this.gameService.attackCard(data.attackerCard, data.defenderCard);
                     this.io.emit('changeInGameState', "A change has happened in the gameState");
                     this.sendAnimationList();
+                    this.sendSoundPlayList();
                     console.log("Attacking Card...")
-                }, 1000)
+                }, 500)
             });
 
             socket.on('attackPlayer', (data: any) => {
@@ -95,13 +95,13 @@ export class GameServer {
                 }
                 // Waiting for the animations for finish before removing dead cards
                 this.animationService.addToAnimationList(data.attackerCard, "attackPlayer")
-                this.sendSoundPlayList();
                 this.sendAnimationList();
                 setTimeout(() => {
                     this.gameService.attackEnemyPlayer(data.attackerCard);
+                    this.sendSoundPlayList();
                     this.sendAnimationList();
                     this.io.emit('changeInGameState', "A change has happened in the gameState");
-                }, 1000)
+                }, 500)
             });
 
             socket.on('endRound', (data:any) => {
