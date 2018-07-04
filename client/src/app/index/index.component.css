@@ -1,0 +1,24 @@
+.container{
+  height:500px;
+}
+
+.toprow{
+  height:40%;
+}
+
+.bottomrow{
+  height:40%;
+}
+
+.middlerow{
+  height:20%;
+}
+
+.playerOneButton{
+  padding:50px;
+}
+
+.playerTwoButton{
+  padding:50px;
+  align-content: right;
+}
