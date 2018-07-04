@@ -5,7 +5,7 @@ import { trigger, style, state, transition, animate, keyframes } from '@angular/
 import { Player } from '../model/Player';
 import 'rxjs/add/operator/map';
 import { StyleService } from '../service/style.service';
-import { animations } from '../player-one/animations'
+import { animations } from '../player-one/animations';
 
 
 

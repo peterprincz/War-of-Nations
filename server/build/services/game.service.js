@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var GameState_1 = require("./../model/GameState");
 var Player_1 = require("../model/Player");
 var game_logic_service_1 = require("./game-logic.service");
-var dns_1 = require("dns");
 /**
  *
  * Responsible for the communicitation between the game and the server.
@@ -34,50 +33,29 @@ var GameService = /** @class */ (function () {
         this.gameLogicService.startRound(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer());
     };
     GameService.prototype.isCardPlayAbleFromHand = function (cardToPlay) {
-        var realCard = this.getRealCardFromJson(cardToPlay);
+        var realCard = this.gameState.getRealCardFromJson(cardToPlay);
         return this.gameLogicService.isCardPlayableFromHand(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer(), realCard);
     };
     GameService.prototype.isCardAbleToAttackEnemyCard = function (attackerCard, defenderCard) {
-        var realAttackerCard = this.getRealCardFromJson(attackerCard);
+        var realAttackerCard = this.gameState.getRealCardFromJson(attackerCard);
         return this.gameLogicService.isCardAbleToAttackEnemyCard(realAttackerCard, defenderCard);
     };
     GameService.prototype.isCardAbleToAttackEnemyPlayer = function (attackerCard) {
-        var realAttackerCard = this.getRealCardFromJson(attackerCard);
+        var realAttackerCard = this.gameState.getRealCardFromJson(attackerCard);
         return this.gameLogicService.isCardAbleToAttackEnemyPlayer(realAttackerCard, this.gameState.getPassivePlayer());
     };
     GameService.prototype.PlayFromHand = function (card) {
-        var realCard = this.getRealCardFromJson(card);
+        var realCard = this.gameState.getRealCardFromJson(card);
         this.gameLogicService.playFromHand(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer(), realCard);
     };
     GameService.prototype.attackCard = function (attackerCard, defenderCard) {
-        var realAttackerCard = this.getRealCardFromJson(attackerCard);
-        var realDefenderCard = this.getRealCardFromJson(defenderCard);
+        var realAttackerCard = this.gameState.getRealCardFromJson(attackerCard);
+        var realDefenderCard = this.gameState.getRealCardFromJson(defenderCard);
         this.gameLogicService.attackCard(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer(), realAttackerCard, realDefenderCard);
     };
     GameService.prototype.attackEnemyPlayer = function (card) {
-        var realCard = this.getRealCardFromJson(card);
+        var realCard = this.gameState.getRealCardFromJson(card);
         this.gameLogicService.attackPlayer(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer(), realCard);
-    };
-    GameService.prototype.getRealCardFromJson = function (card) {
-        if (this.gameState.playerOne.deck.filter(function (realCard) { return realCard.id == card.id; }).length == 1) {
-            return this.gameState.playerOne.deck.filter(function (realCard) { return realCard.id == card.id; })[0];
-        }
-        if (this.gameState.playerOne.half.cards.filter(function (realCard) { return realCard.id == card.id; }).length == 1) {
-            return this.gameState.playerOne.half.cards.filter(function (realCard) { return realCard.id == card.id; })[0];
-        }
-        if (this.gameState.playerOne.hand.cards.filter(function (realCard) { return realCard.id == card.id; }).length == 1) {
-            return this.gameState.playerOne.hand.cards.filter(function (realCard) { return realCard.id == card.id; })[0];
-        }
-        if (this.gameState.playerTwo.deck.filter(function (realCard) { return realCard.id == card.id; }).length == 1) {
-            return this.gameState.playerTwo.deck.filter(function (realCard) { return realCard.id == card.id; })[0];
-        }
-        if (this.gameState.playerTwo.half.cards.filter(function (realCard) { return realCard.id == card.id; }).length == 1) {
-            return this.gameState.playerTwo.half.cards.filter(function (realCard) { return realCard.id == card.id; })[0];
-        }
-        if (this.gameState.playerTwo.hand.cards.filter(function (realCard) { return realCard.id == card.id; }).length == 1) {
-            return this.gameState.playerTwo.hand.cards.filter(function (realCard) { return realCard.id == card.id; })[0];
-        }
-        throw dns_1.NOTFOUND;
     };
     GameService.prototype.swapPlayers = function () {
         this.gameState.switchActivePlayer();
