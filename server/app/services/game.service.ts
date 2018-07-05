@@ -84,7 +84,7 @@ export class GameService {
   }
 
   isGameOver(): boolean {
-    if(this.gameState.playerOne.health < 1 && this.gameState.playerTwo.health < 2){
+    if(this.gameState.playerOne.health < 1 || this.gameState.playerTwo.health < 2){
       return true;
     }
     return false;
