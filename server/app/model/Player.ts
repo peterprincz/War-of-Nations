@@ -12,6 +12,7 @@ export class Player{
   health: number;
   half: Half;
   isActive: boolean;
+  animations: any;
 
   constructor(name: string, deck:Card[]){
     this.hand = new Hand();
@@ -22,6 +23,7 @@ export class Player{
     this.deck = deck;
     this.name = name;
     this.isActive = false;
+    this.animations = {};
   }
 
   onAttacked(card: Card) {

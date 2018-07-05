@@ -12,6 +12,7 @@ var Player = /** @class */ (function () {
         this.deck = deck;
         this.name = name;
         this.isActive = false;
+        this.animations = {};
     }
     Player.prototype.onAttacked = function (card) {
         this.health -= card.attack;

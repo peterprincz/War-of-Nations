@@ -12,7 +12,7 @@ var game_logic_service_1 = require("./game-logic.service");
 var GameService = /** @class */ (function () {
     function GameService(soundService, animationSerivce) {
         this.gameLogicService = new game_logic_service_1.GameLogicService(soundService, animationSerivce);
-        this.gameState = this.createNewGame();
+        this.gameState = GameState_1.GameState.createEmptyGameState();
     }
     GameService.prototype.createNewGame = function () {
         var playerOneDeck = this.gameLogicService.createDeck();
@@ -22,7 +22,7 @@ var GameService = /** @class */ (function () {
         playerOne.isActive = true;
         this.gameLogicService.pullStartingCards(playerOne, playerTwo, 4);
         var gameState = new GameState_1.GameState(playerOne, playerTwo);
-        return gameState;
+        this.gameState = gameState;
     };
     GameService.prototype.endRound = function () {
         this.gameLogicService.endRound(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer());

@@ -35,6 +35,10 @@ export class GameState{
         }
     }
 
+    static createEmptyGameState(): GameState {
+        return new GameState(new Player("", []), new Player("", []));
+    }
+
     getRealCardFromJson(cardFromJson: Card): Card {
         let realCard: Card = this.playerOne.half.cards.filter(x => cardFromJson.id == x.id)[0];
         if (realCard) { return realCard; }

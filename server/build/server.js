@@ -26,7 +26,9 @@ var GameServer = /** @class */ (function () {
             res.send(_this.gameService.gameState);
         });
         this.app.get('/newGame', function (req, res) {
-            _this.gameService.gameState = _this.gameService.createNewGame();
+            _this.gameService.createNewGame();
+            console.log("starting new Game");
+            _this.io.emit('changeInGameState', "A change has happened in the gameState");
             res.send("new Game started");
         });
         this.server.listen(this.port, function () {
@@ -66,7 +68,7 @@ var GameServer = /** @class */ (function () {
                     _this.sendAnimationList();
                     _this.sendSoundPlayList();
                     console.log("Attacking Card...");
-                }, 1000);
+                }, 500);
             });
             socket.on('attackPlayer', function (data) {
                 console.log("An attackPlayer request came from a client");
@@ -79,11 +81,12 @@ var GameServer = /** @class */ (function () {
                 _this.animationService.addToAnimationList(data.attackerCard, "attackPlayer");
                 _this.sendAnimationList();
                 setTimeout(function () {
+                    _this.animationService.addToAnimationList(_this.gameService.gameState.getPassivePlayer(), 'playerDamaged');
                     _this.gameService.attackEnemyPlayer(data.attackerCard);
                     _this.sendSoundPlayList();
                     _this.sendAnimationList();
                     _this.io.emit('changeInGameState', "A change has happened in the gameState");
-                }, 1000);
+                }, 500);
             });
             socket.on('endRound', function (data) {
                 console.log("An endRound request came from a client");

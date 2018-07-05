@@ -20,10 +20,10 @@ export class GameService {
 
   constructor(soundService: SoundService, animationSerivce:AnimationService) {
     this.gameLogicService = new GameLogicService(soundService, animationSerivce);
-    this.gameState = this.createNewGame();
+    this.gameState = GameState.createEmptyGameState();
   }
 
-  public createNewGame():GameState{
+  public createNewGame():void{
     let playerOneDeck: Card[] = this.gameLogicService.createDeck();
     let playerTwoDeck: Card[] = this.gameLogicService.createDeck();
     let playerOne: Player = new Player("béla", playerOneDeck);
@@ -31,7 +31,7 @@ export class GameService {
     playerOne.isActive = true;
     this.gameLogicService.pullStartingCards(playerOne, playerTwo, 4);
     let gameState:GameState = new GameState(playerOne, playerTwo);
-    return gameState;
+    this.gameState = gameState;
   }
 
   endRound() {
