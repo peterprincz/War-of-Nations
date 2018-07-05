@@ -17,8 +17,10 @@ import { AnimationService } from './animation-service';
 export class GameService {
   gameState: GameState;
   gameLogicService: GameLogicService;
+  animationService: AnimationService;
 
   constructor(soundService: SoundService, animationSerivce:AnimationService) {
+    this.animationService = animationSerivce;
     this.gameLogicService = new GameLogicService(soundService, animationSerivce);
     this.gameState = GameState.createEmptyGameState();
   }
@@ -66,6 +68,8 @@ export class GameService {
   }
 
   attackCard(attackerCard: Card, defenderCard: Card) {
+    this.animationService.addCardToAnimationList(attackerCard, "attackCard")
+    setTimeout(() => {
     let realAttackerCard: Card = this.gameState.getRealCardFromJson(attackerCard)
     let realDefenderCard: Card = this.gameState.getRealCardFromJson(defenderCard);
     this.gameLogicService.attackCard(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer(), realAttackerCard, realDefenderCard);
@@ -74,6 +78,7 @@ export class GameService {
   attackEnemyPlayer(card: Card) {
     let realCard = this.gameState.getRealCardFromJson(card);
     this.gameLogicService.attackPlayer(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer(), realCard);
+    this.animationService.addPlayerToAnimationList(this.gameState.getPassivePlayer(), 'playerDamaged')
   }
 
   swapPlayers() {

@@ -40,8 +40,8 @@ export class GameServer {
 
         this.app.get('/newGame', (req, res) => {
             this.gameService.createNewGame();
-            console.log("starting new Game")
             this.io.emit('changeInGameState', "A change has happened in the gameState");
+            this.sendAnimationList();
             res.send("new Game started");
         });
 
@@ -51,55 +51,45 @@ export class GameServer {
 
         this.io.on('connect', (socket: any) => {
             socket.on('clientJoined', (m: string) => {
-                console.log(`A client has joined to the Server:${m}`)
                 this.io.emit('clientJoined', "A client has joined");
                 this.io.emit('changeInGameState', "A change has happened in the gameState");
             });
 
             socket.on('playCard', (data: any) => {
-                console.log("A playCard request came from a client");
                 if(!this.gameService.isCardPlayAbleFromHand(data.playedCard)){
                         this.io.emit('warningMessage', "you cant play that Card")
                     return;
                 }
                 this.gameService.PlayFromHand(data.playedCard);
                 this.io.emit('changeInGameState', "A change has happened in the gameState");
-                console.log("playing Card...")
                 this.sendSoundPlayList();
                 this.sendAnimationList();
             });
 
             socket.on('attackCard', (data: any) => {
-                console.log("An attackPlayer request came from a client");
                 if(!this.gameService.isCardAbleToAttackEnemyCard(data.attackerCard, data.defenderCard)){
-                    console.log("Invalid attackPlayer request");
                     this.io.emit('warningMessage', "you cant attack that Card")
                     return;
                 }
                 this.animationService.addCardToAnimationList(data.attackerCard, "attackCard")
                 this.sendAnimationList();
-                // Waiting for the animations for finish before removing dead cards
                 setTimeout(() => {
                     this.gameService.attackCard(data.attackerCard, data.defenderCard);
                     this.io.emit('changeInGameState', "A change has happened in the gameState");
                     this.sendAnimationList();
                     this.sendSoundPlayList();
-                    console.log("Attacking Card...")
                 }, 500)
             });
 
             socket.on('attackPlayer', (data: any) => {
-                console.log("An attackPlayer request came from a client");
                 if(!this.gameService.isCardAbleToAttackEnemyPlayer(data.attackerCard)){
-                    console.log("The attackPlayer request was invalid");
                     this.io.emit('warningMessage', "you cant attack the Hero")
                     return;
                 }
-                // Waiting for the animations for finish before removing dead cards
                 this.animationService.addCardToAnimationList(data.attackerCard, "attackPlayer")
                 this.sendAnimationList();
+                //Need time for the attack animation to trigger, before dissapearing in the event of death
                 setTimeout(() => {
-                    this.animationService.addPlayerToAnimationList(this.gameService.gameState.getPassivePlayer(), 'playerDamaged')
                     this.gameService.attackEnemyPlayer(data.attackerCard);
                     this.sendSoundPlayList();
                     this.sendAnimationList();
@@ -108,9 +98,7 @@ export class GameServer {
             });
 
             socket.on('endRound', (data:any) => {
-                console.log("An endRound request came from a client");
                 this.gameService.endRound();
-                console.log("Ending round...");
                 this.sendAnimationList();
                 this.io.emit('changeInGameState', "A change has happened in the gameState");
             });

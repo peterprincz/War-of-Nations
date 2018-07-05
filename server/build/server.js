@@ -29,6 +29,7 @@ var GameServer = /** @class */ (function () {
             _this.gameService.createNewGame();
             console.log("starting new Game");
             _this.io.emit('changeInGameState', "A change has happened in the gameState");
+            _this.sendAnimationList();
             res.send("new Game started");
         });
         this.server.listen(this.port, function () {
