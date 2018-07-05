@@ -64,7 +64,7 @@ var GameService = /** @class */ (function () {
         this.gameState.switchActivePlayer();
     };
     GameService.prototype.isGameOver = function () {
-        if (this.gameState.playerOne.health < 1 && this.gameState.playerTwo.health < 2) {
+        if (this.gameState.playerOne.health < 1 || this.gameState.playerTwo.health < 2) {
             return true;
         }
         return false;
