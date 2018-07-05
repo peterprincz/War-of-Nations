@@ -38,6 +38,7 @@ var GameServer = /** @class */ (function () {
             socket.on('clientJoined', function (m) {
                 _this.io.emit('clientJoined', "A client has joined");
                 _this.io.emit('changeInGameState', "A change has happened in the gameState");
+                _this.checkForGameOver();
             });
             socket.on('playCard', function (data) {
                 if (!_this.gameService.isCardPlayAbleFromHand(data.playedCard)) {
@@ -48,6 +49,7 @@ var GameServer = /** @class */ (function () {
                 _this.io.emit('changeInGameState', "A change has happened in the gameState");
                 _this.sendSoundPlayList();
                 _this.sendAnimationList();
+                _this.checkForGameOver();
             });
             socket.on('attackCard', function (data) {
                 if (!_this.gameService.isCardAbleToAttackEnemyCard(data.attackerCard, data.defenderCard)) {
@@ -61,6 +63,7 @@ var GameServer = /** @class */ (function () {
                     _this.io.emit('changeInGameState', "A change has happened in the gameState");
                     _this.sendAnimationList();
                     _this.sendSoundPlayList();
+                    _this.checkForGameOver();
                 }, 500);
             });
             socket.on('attackPlayer', function (data) {
@@ -76,12 +79,14 @@ var GameServer = /** @class */ (function () {
                     _this.sendSoundPlayList();
                     _this.sendAnimationList();
                     _this.io.emit('changeInGameState', "A change has happened in the gameState");
+                    _this.checkForGameOver();
                 }, 500);
             });
             socket.on('endRound', function (data) {
                 _this.gameService.endRound();
                 _this.sendAnimationList();
                 _this.io.emit('changeInGameState', "A change has happened in the gameState");
+                _this.checkForGameOver();
             });
             socket.on('disconnect', function () {
                 console.log('Client disconnected');
@@ -102,6 +107,11 @@ var GameServer = /** @class */ (function () {
     };
     GameServer.prototype.getApp = function () {
         return this.app;
+    };
+    GameServer.prototype.checkForGameOver = function () {
+        if (this.gameService.isGameOver()) {
+            this.io.emit('warningMessage', 'The game is over');
+        }
     };
     GameServer.PORT = 8080;
     return GameServer;
