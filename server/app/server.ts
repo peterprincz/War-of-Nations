@@ -53,6 +53,7 @@ export class GameServer {
             socket.on('clientJoined', (m: string) => {
                 this.io.emit('clientJoined', "A client has joined");
                 this.io.emit('changeInGameState', "A change has happened in the gameState");
+                this.checkForGameOver()
             });
 
             socket.on('playCard', (data: any) => {
@@ -64,6 +65,7 @@ export class GameServer {
                 this.io.emit('changeInGameState', "A change has happened in the gameState");
                 this.sendSoundPlayList();
                 this.sendAnimationList();
+                this.checkForGameOver()
             });
 
             socket.on('attackCard', (data: any) => {
@@ -78,6 +80,7 @@ export class GameServer {
                     this.io.emit('changeInGameState', "A change has happened in the gameState");
                     this.sendAnimationList();
                     this.sendSoundPlayList();
+                    this.checkForGameOver()
                 }, 500)
             });
 
@@ -94,6 +97,7 @@ export class GameServer {
                     this.sendSoundPlayList();
                     this.sendAnimationList();
                     this.io.emit('changeInGameState', "A change has happened in the gameState");
+                    this.checkForGameOver()
                 }, 500)
             });
 
@@ -101,6 +105,7 @@ export class GameServer {
                 this.gameService.endRound();
                 this.sendAnimationList();
                 this.io.emit('changeInGameState', "A change has happened in the gameState");
+                this.checkForGameOver()
             });
 
             socket.on('disconnect', () => {
@@ -125,6 +130,12 @@ export class GameServer {
 
     public getApp(): express.Application {
         return this.app;
+    }
+
+    public checkForGameOver() {
+        if(this.gameService.isGameOver()){
+            this.io.emit('warningMessage', 'The game is over')
+        }
     }
 
 }

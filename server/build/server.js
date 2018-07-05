@@ -27,7 +27,6 @@ var GameServer = /** @class */ (function () {
         });
         this.app.get('/newGame', function (req, res) {
             _this.gameService.createNewGame();
-            console.log("starting new Game");
             _this.io.emit('changeInGameState', "A change has happened in the gameState");
             _this.sendAnimationList();
             res.send("new Game started");
@@ -37,52 +36,42 @@ var GameServer = /** @class */ (function () {
         });
         this.io.on('connect', function (socket) {
             socket.on('clientJoined', function (m) {
-                console.log("A client has joined to the Server:" + m);
                 _this.io.emit('clientJoined', "A client has joined");
                 _this.io.emit('changeInGameState', "A change has happened in the gameState");
             });
             socket.on('playCard', function (data) {
-                console.log("A playCard request came from a client");
                 if (!_this.gameService.isCardPlayAbleFromHand(data.playedCard)) {
                     _this.io.emit('warningMessage', "you cant play that Card");
                     return;
                 }
                 _this.gameService.PlayFromHand(data.playedCard);
                 _this.io.emit('changeInGameState', "A change has happened in the gameState");
-                console.log("playing Card...");
                 _this.sendSoundPlayList();
                 _this.sendAnimationList();
             });
             socket.on('attackCard', function (data) {
-                console.log("An attackPlayer request came from a client");
                 if (!_this.gameService.isCardAbleToAttackEnemyCard(data.attackerCard, data.defenderCard)) {
-                    console.log("Invalid attackPlayer request");
                     _this.io.emit('warningMessage', "you cant attack that Card");
                     return;
                 }
                 _this.animationService.addCardToAnimationList(data.attackerCard, "attackCard");
                 _this.sendAnimationList();
-                // Waiting for the animations for finish before removing dead cards
                 setTimeout(function () {
                     _this.gameService.attackCard(data.attackerCard, data.defenderCard);
                     _this.io.emit('changeInGameState', "A change has happened in the gameState");
                     _this.sendAnimationList();
                     _this.sendSoundPlayList();
-                    console.log("Attacking Card...");
                 }, 500);
             });
             socket.on('attackPlayer', function (data) {
-                console.log("An attackPlayer request came from a client");
                 if (!_this.gameService.isCardAbleToAttackEnemyPlayer(data.attackerCard)) {
-                    console.log("The attackPlayer request was invalid");
                     _this.io.emit('warningMessage', "you cant attack the Hero");
                     return;
                 }
-                // Waiting for the animations for finish before removing dead cards
                 _this.animationService.addCardToAnimationList(data.attackerCard, "attackPlayer");
                 _this.sendAnimationList();
+                //Need time for the attack animation to trigger, before dissapearing in the event of death
                 setTimeout(function () {
-                    _this.animationService.addPlayerToAnimationList(_this.gameService.gameState.getPassivePlayer(), 'playerDamaged');
                     _this.gameService.attackEnemyPlayer(data.attackerCard);
                     _this.sendSoundPlayList();
                     _this.sendAnimationList();
@@ -90,9 +79,7 @@ var GameServer = /** @class */ (function () {
                 }, 500);
             });
             socket.on('endRound', function (data) {
-                console.log("An endRound request came from a client");
                 _this.gameService.endRound();
-                console.log("Ending round...");
                 _this.sendAnimationList();
                 _this.io.emit('changeInGameState', "A change has happened in the gameState");
             });

@@ -11,6 +11,7 @@ var game_logic_service_1 = require("./game-logic.service");
  */
 var GameService = /** @class */ (function () {
     function GameService(soundService, animationSerivce) {
+        this.animationService = animationSerivce;
         this.gameLogicService = new game_logic_service_1.GameLogicService(soundService, animationSerivce);
         this.gameState = GameState_1.GameState.createEmptyGameState();
     }
@@ -57,6 +58,7 @@ var GameService = /** @class */ (function () {
     GameService.prototype.attackEnemyPlayer = function (card) {
         var realCard = this.gameState.getRealCardFromJson(card);
         this.gameLogicService.attackPlayer(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer(), realCard);
+        this.animationService.addPlayerToAnimationList(this.gameState.getPassivePlayer(), 'playerDamaged');
     };
     GameService.prototype.swapPlayers = function () {
         this.gameState.switchActivePlayer();
