@@ -68,21 +68,26 @@ export class GameService {
   }
 
   attackCard(attackerCard: Card, defenderCard: Card) {
-    this.animationService.addCardToAnimationList(attackerCard, "attackCard")
-    setTimeout(() => {
     let realAttackerCard: Card = this.gameState.getRealCardFromJson(attackerCard)
     let realDefenderCard: Card = this.gameState.getRealCardFromJson(defenderCard);
     this.gameLogicService.attackCard(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer(), realAttackerCard, realDefenderCard);
   }
 
   attackEnemyPlayer(card: Card) {
-    let realCard = this.gameState.getRealCardFromJson(card);
+    let realCard = this.gameState.getRealCardFromJson(card)
     this.gameLogicService.attackPlayer(this.gameState.getActivePlayer(), this.gameState.getPassivePlayer(), realCard);
     this.animationService.addPlayerToAnimationList(this.gameState.getPassivePlayer(), 'playerDamaged')
   }
 
   swapPlayers() {
     this.gameState.switchActivePlayer();  
+  }
+
+  isGameOver(): boolean {
+    if(this.gameState.playerOne.health < 1 || this.gameState.playerTwo.health < 2){
+      return true;
+    }
+    return false;
   }
 
 }
