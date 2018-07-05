@@ -51,7 +51,8 @@ export class GameService {
 
   isCardAbleToAttackEnemyCard(attackerCard:Card, defenderCard:Card):boolean{
     let realAttackerCard: Card = this.gameState.getRealCardFromJson(attackerCard)
-    return this.gameLogicService.isCardAbleToAttackEnemyCard(realAttackerCard, defenderCard)
+    let realDefenderCard: Card = this.gameState.getRealCardFromJson(defenderCard)
+    return this.gameLogicService.isCardAbleToAttackEnemyCard(realAttackerCard, realDefenderCard, this.gameState.getPassivePlayer())
   }
 
   isCardAbleToAttackEnemyPlayer(attackerCard:Card):boolean {

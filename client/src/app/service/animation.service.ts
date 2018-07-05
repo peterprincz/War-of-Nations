@@ -13,8 +13,8 @@ export class AnimationService {
   playAnimations(gameState: GameState, animations: Animation[]) {
     animations.forEach(animation => {
       setTimeout(() => {
-        if (animation.target instanceof Card) {
-          let card: Card = gameState.getRealCardFromJson(animation.target);
+        if (animation.type === 'card') {
+          const card: Card = gameState.getRealCardFromJson(animation.target);
           if (animation.animation === 'playFormHand') {
             card.animations.hasJustPlayed = true;
           }
@@ -31,9 +31,8 @@ export class AnimationService {
             card.animations.hasJustGotDamaged = true;
           }
         } else {
-          let player: Player = gameState.getRealPlayerFromJson(animation.target);
+          const player: Player = gameState.getRealPlayerFromJson(animation.target);
           if (animation.animation === 'playerDamaged') {
-            console.log(player);
             player.animations.gotDamaged = true;
           }
         }
@@ -46,13 +45,8 @@ export class AnimationService {
 
 export class Animation {
 
-  target: Card|Player;
+  target: any;
+  type: string;
   animation: string;
-
-  constructor(target: Card|Player, animation: string) {
-      this.target = target;
-      this.animation = animation;
-  }
-
 
 }

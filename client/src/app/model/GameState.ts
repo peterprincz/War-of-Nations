@@ -15,29 +15,33 @@ export class GameState {
     }
 
     static getDummyGameState(): GameState {
-      let playerOne: Player = new Player(new Hand(), "");
-      let playerTwo: Player = new Player(new Hand(), "");
-      let cards: Card[] = [];
+      const playerOne: Player = new Player(new Hand(), '');
+      const playerTwo: Player = new Player(new Hand(), '');
+      const cards: Card[] = [];
       return new GameState(playerOne, playerTwo, cards);
     }
 
   getRealCardFromJson(cardFromJson: Card): Card {
-    let realCard: Card = this.playerOne.half.cards.filter(x => cardFromJson.id == x.id)[0];
+    let realCard: Card = this.playerOne.half.cards.filter(x => cardFromJson.id === x.id)[0];
     if (realCard) { return realCard; }
-    realCard = this.playerOne.hand.cards.filter(x => cardFromJson.id == x.id)[0];
+    realCard = this.playerOne.hand.cards.filter(x => cardFromJson.id === x.id)[0];
     if (realCard) { return realCard; }
-    realCard = this.playerOne.deck.filter(x => cardFromJson.id == x.id)[0];
+    realCard = this.playerOne.deck.filter(x => cardFromJson.id === x.id)[0];
     if (realCard) { return realCard; }
-    realCard = this.playerTwo.half.cards.filter(x => cardFromJson.id == x.id)[0];
+    realCard = this.playerTwo.half.cards.filter(x => cardFromJson.id === x.id)[0];
     if (realCard) { return realCard; }
-    realCard = this.playerTwo.deck.filter(x => cardFromJson.id == x.id)[0];
+    realCard = this.playerTwo.deck.filter(x => cardFromJson.id === x.id)[0];
     if (realCard) { return realCard; }
-    realCard = this.playerTwo.hand.cards.filter(x => cardFromJson.id == x.id)[0];
+    realCard = this.playerTwo.hand.cards.filter(x => cardFromJson.id === x.id)[0];
     return realCard;
   }
 
   getRealPlayerFromJson(playerFromJson: Player): Player {
-    return this.playerOne;
+    if (this.playerOne.name === playerFromJson.name) {
+      return this.playerOne;
+    } else {
+      return this.playerTwo;
+    }
   }
 
 }

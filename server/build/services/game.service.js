@@ -38,7 +38,8 @@ var GameService = /** @class */ (function () {
     };
     GameService.prototype.isCardAbleToAttackEnemyCard = function (attackerCard, defenderCard) {
         var realAttackerCard = this.gameState.getRealCardFromJson(attackerCard);
-        return this.gameLogicService.isCardAbleToAttackEnemyCard(realAttackerCard, defenderCard);
+        var realDefenderCard = this.gameState.getRealCardFromJson(defenderCard);
+        return this.gameLogicService.isCardAbleToAttackEnemyCard(realAttackerCard, realDefenderCard, this.gameState.getPassivePlayer());
     };
     GameService.prototype.isCardAbleToAttackEnemyPlayer = function (attackerCard) {
         var realAttackerCard = this.gameState.getRealCardFromJson(attackerCard);

@@ -59,7 +59,7 @@ var GameServer = /** @class */ (function () {
                     _this.io.emit('warningMessage', "you cant attack that Card");
                     return;
                 }
-                _this.animationService.addToAnimationList(data.attackerCard, "attackCard");
+                _this.animationService.addCardToAnimationList(data.attackerCard, "attackCard");
                 _this.sendAnimationList();
                 // Waiting for the animations for finish before removing dead cards
                 setTimeout(function () {
@@ -78,10 +78,10 @@ var GameServer = /** @class */ (function () {
                     return;
                 }
                 // Waiting for the animations for finish before removing dead cards
-                _this.animationService.addToAnimationList(data.attackerCard, "attackPlayer");
+                _this.animationService.addCardToAnimationList(data.attackerCard, "attackPlayer");
                 _this.sendAnimationList();
                 setTimeout(function () {
-                    _this.animationService.addToAnimationList(_this.gameService.gameState.getPassivePlayer(), 'playerDamaged');
+                    _this.animationService.addPlayerToAnimationList(_this.gameService.gameState.getPassivePlayer(), 'playerDamaged');
                     _this.gameService.attackEnemyPlayer(data.attackerCard);
                     _this.sendSoundPlayList();
                     _this.sendAnimationList();

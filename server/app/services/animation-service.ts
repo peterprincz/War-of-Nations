@@ -9,8 +9,12 @@ export class AnimationService{
         this.animationList = [];
     }
 
-    addToAnimationList(target:Card|Player, animation:string){
-        this.animationList.push(new Animation(target, animation));
+    addCardToAnimationList(target:Card, animation:string){
+        this.animationList.push(new Animation(target,"card", animation));
+    }
+
+    addPlayerToAnimationList(target:Player, animation:string){
+        this.animationList.push(new Animation(target,"player", animation));
     }
 
     emptyAnimationList(){
@@ -27,10 +31,12 @@ export class AnimationService{
 export class Animation {
 
     target:Card | Player;
+    type: string;
     animation:string;
 
-    constructor(target:Card | Player, animation:string){
+    constructor(target:Card | Player, type:string, animation:string){
         this.target = target;
+        this.type = type;
         this.animation = animation;
     }
 

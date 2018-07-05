@@ -76,7 +76,7 @@ export class GameServer {
                     this.io.emit('warningMessage', "you cant attack that Card")
                     return;
                 }
-                this.animationService.addToAnimationList(data.attackerCard, "attackCard")
+                this.animationService.addCardToAnimationList(data.attackerCard, "attackCard")
                 this.sendAnimationList();
                 // Waiting for the animations for finish before removing dead cards
                 setTimeout(() => {
@@ -96,10 +96,10 @@ export class GameServer {
                     return;
                 }
                 // Waiting for the animations for finish before removing dead cards
-                this.animationService.addToAnimationList(data.attackerCard, "attackPlayer")
+                this.animationService.addCardToAnimationList(data.attackerCard, "attackPlayer")
                 this.sendAnimationList();
                 setTimeout(() => {
-                    this.animationService.addToAnimationList(this.gameService.gameState.getPassivePlayer(), 'playerDamaged')
+                    this.animationService.addPlayerToAnimationList(this.gameService.gameState.getPassivePlayer(), 'playerDamaged')
                     this.gameService.attackEnemyPlayer(data.attackerCard);
                     this.sendSoundPlayList();
                     this.sendAnimationList();

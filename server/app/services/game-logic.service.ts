@@ -53,31 +53,23 @@ export class GameLogicService {
     this.cardLogicService.onPlayFromHand(activePlayer, passivePlayer, card);
   }
 
-  isCardAbleToAttackEnemyCard(attackerCard:Card, defenderCard: Card){
-    return this.cardLogicService.isCardAbleToAttackEnemyCard(attackerCard, defenderCard)
+  isCardAbleToAttackEnemyCard(attackerCard:Card, defenderCard: Card, defenderPlayer: Player){
+    console.log(attackerCard);
+    console.log(defenderCard);
+    return this.cardLogicService.isCardAbleToAttackEnemyCard(attackerCard, defenderCard) &&
+           (defenderCard.hasTaunt || defenderPlayer.half.cards.filter(x => x.hasTaunt).length < 1)
   }
 
   isCardAbleToAttackEnemyPlayer(attackerCard:Card, defenderPlayer:Player){
-    return this.cardLogicService.isCardAbleToAttackEnemyPlayer(attackerCard, defenderPlayer)
+    return this.cardLogicService.isCardAbleToAttackEnemyPlayer(attackerCard, defenderPlayer) &&
+           (defenderPlayer.half.cards.filter(x => x.hasTaunt).length < 1)
   }
 
   attackCard(attackerPlayer: Player, defenderPlayer: Player, attackerCard: Card, defenderCard: Card,){
-    if(!this.isCardAbleToAttackEnemyCard(attackerCard, defenderCard)){
-      return;
-    }
-    if(!defenderCard.hasTaunt && defenderPlayer.half.cards.filter(x => x.hasTaunt).length > 0){
-      return;
-    }
     this.cardLogicService.attackCard(attackerPlayer, defenderPlayer, attackerCard, defenderCard);
   }
 
   attackPlayer(attackerPlayer:Player, defenderPlayer:Player, card: Card){
-    if(!this.isCardAbleToAttackEnemyPlayer(card, defenderPlayer)){
-      return;
-    }
-    if(defenderPlayer.half.cards.filter(x => x.hasTaunt).length > 0) {
-      return;
-    }
     this.cardLogicService.attackPlayer(attackerPlayer, defenderPlayer, card);
   }
 

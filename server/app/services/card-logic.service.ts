@@ -46,7 +46,7 @@ export class CardLogicService {
   onPlayFromHand(activePlayer:Player, passivePlayer:Player, card:Card){
     card.onPlayFromHand(activePlayer, passivePlayer);
     this.soundService.addToPlayList(card.getPlaySound());
-    this.animationService.addToAnimationList(card, "playFormHand")
+    this.animationService.addCardToAnimationList(card, "playFormHand")
   }
 
   isCardAbleToAttackEnemyCard(attackerCard:Card, defenderCard:Card) : boolean {
@@ -65,14 +65,14 @@ export class CardLogicService {
       this.soundService.addToPlayList(defenderCard.getDeathSound());
       defenderPlayer.half.cards = defenderPlayer.half.cards.filter(x => x != defenderCard);
     } else {
-      this.animationService.addToAnimationList(defenderCard, "cardDamaged");
+      this.animationService.addCardToAnimationList(defenderCard, "cardDamaged");
     }
     if(attackerCard.health < 1){
       attackerCard.onDeath(activePlayer, defenderPlayer);
       this.soundService.addToPlayList(attackerCard.getDeathSound());
       activePlayer.half.cards = activePlayer.half.cards.filter(x => x != attackerCard);
     } else {
-      this.animationService.addToAnimationList(attackerCard, "cardDamaged");
+      this.animationService.addCardToAnimationList(attackerCard, "cardDamaged");
     }
   }
 

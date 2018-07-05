@@ -35,7 +35,7 @@ var PlayerLogicService = /** @class */ (function () {
             }
             if (player.hand.cards.length <= 8) {
                 player.hand.cards.push(player.deck[0]);
-                this.animationService.addToAnimationList(player.deck[0], "pullFromDeck");
+                this.animationService.addCardToAnimationList(player.deck[0], "pullFromDeck");
             }
             player.deck.splice(0, 1);
         }

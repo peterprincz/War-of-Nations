@@ -35,28 +35,20 @@ var GameLogicService = /** @class */ (function () {
         this.playerLogicService.playFromHand(activePlayer, passivePlayer, card);
         this.cardLogicService.onPlayFromHand(activePlayer, passivePlayer, card);
     };
-    GameLogicService.prototype.isCardAbleToAttackEnemyCard = function (attackerCard, defenderCard) {
-        return this.cardLogicService.isCardAbleToAttackEnemyCard(attackerCard, defenderCard);
+    GameLogicService.prototype.isCardAbleToAttackEnemyCard = function (attackerCard, defenderCard, defenderPlayer) {
+        console.log(attackerCard);
+        console.log(defenderCard);
+        return this.cardLogicService.isCardAbleToAttackEnemyCard(attackerCard, defenderCard) &&
+            (defenderCard.hasTaunt || defenderPlayer.half.cards.filter(function (x) { return x.hasTaunt; }).length < 1);
     };
     GameLogicService.prototype.isCardAbleToAttackEnemyPlayer = function (attackerCard, defenderPlayer) {
-        return this.cardLogicService.isCardAbleToAttackEnemyPlayer(attackerCard, defenderPlayer);
+        return this.cardLogicService.isCardAbleToAttackEnemyPlayer(attackerCard, defenderPlayer) &&
+            (defenderPlayer.half.cards.filter(function (x) { return x.hasTaunt; }).length < 1);
     };
     GameLogicService.prototype.attackCard = function (attackerPlayer, defenderPlayer, attackerCard, defenderCard) {
-        if (!this.isCardAbleToAttackEnemyCard(attackerCard, defenderCard)) {
-            return;
-        }
-        if (!defenderCard.hasTaunt && defenderPlayer.half.cards.filter(function (x) { return x.hasTaunt; }).length > 0) {
-            return;
-        }
         this.cardLogicService.attackCard(attackerPlayer, defenderPlayer, attackerCard, defenderCard);
     };
     GameLogicService.prototype.attackPlayer = function (attackerPlayer, defenderPlayer, card) {
-        if (!this.isCardAbleToAttackEnemyPlayer(card, defenderPlayer)) {
-            return;
-        }
-        if (defenderPlayer.half.cards.filter(function (x) { return x.hasTaunt; }).length > 0) {
-            return;
-        }
         this.cardLogicService.attackPlayer(attackerPlayer, defenderPlayer, card);
     };
     GameLogicService.prototype.pullCardFromDeck = function (player, amount) {

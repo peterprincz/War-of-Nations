@@ -30,7 +30,7 @@ var CardLogicService = /** @class */ (function () {
     CardLogicService.prototype.onPlayFromHand = function (activePlayer, passivePlayer, card) {
         card.onPlayFromHand(activePlayer, passivePlayer);
         this.soundService.addToPlayList(card.getPlaySound());
-        this.animationService.addToAnimationList(card, "playFormHand");
+        this.animationService.addCardToAnimationList(card, "playFormHand");
     };
     CardLogicService.prototype.isCardAbleToAttackEnemyCard = function (attackerCard, defenderCard) {
         return attackerCard.isAbleToAttackCard(defenderCard);
@@ -47,7 +47,7 @@ var CardLogicService = /** @class */ (function () {
             defenderPlayer.half.cards = defenderPlayer.half.cards.filter(function (x) { return x != defenderCard; });
         }
         else {
-            this.animationService.addToAnimationList(defenderCard, "cardDamaged");
+            this.animationService.addCardToAnimationList(defenderCard, "cardDamaged");
         }
         if (attackerCard.health < 1) {
             attackerCard.onDeath(activePlayer, defenderPlayer);
@@ -55,7 +55,7 @@ var CardLogicService = /** @class */ (function () {
             activePlayer.half.cards = activePlayer.half.cards.filter(function (x) { return x != attackerCard; });
         }
         else {
-            this.animationService.addToAnimationList(attackerCard, "cardDamaged");
+            this.animationService.addCardToAnimationList(attackerCard, "cardDamaged");
         }
     };
     CardLogicService.prototype.attackPlayer = function (activePlayer, defenderPlayer, attackerCard) {
