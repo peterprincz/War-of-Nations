@@ -21,7 +21,6 @@ export class GameState {
       return new GameState(playerOne, playerTwo, cards);
     }
 
-
   getRealCardFromJson(cardFromJson: Card): Card {
     let realCard: Card = this.playerOne.half.cards.filter(x => cardFromJson.id == x.id)[0];
     if (realCard) { return realCard; }
@@ -35,6 +34,10 @@ export class GameState {
     if (realCard) { return realCard; }
     realCard = this.playerTwo.hand.cards.filter(x => cardFromJson.id == x.id)[0];
     return realCard;
+  }
+
+  getRealPlayerFromJson(playerFromJson: Player): Player {
+    return this.playerOne;
   }
 
 }

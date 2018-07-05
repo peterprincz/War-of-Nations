@@ -14,7 +14,7 @@
   <div class="row">
       <div id="char" class="myCharacter">
          <div class="col-md-2">
-             <div class="healthDiv" >
+             <div class="healthDiv" [@PlayerDamagedAnimation]='dataService.gameState.playerOne.animations.gotDamaged'>
                <p>health: {{dataService.gameState.playerOne.health}}<p>
              </div>
              <div class="manaDiv">
@@ -110,7 +110,7 @@
     <div class="row">
         <div class="myCharacter">
            <div class="col-md-2">
-               <div class="healthDiv" >
+               <div class="healthDiv" [@PlayerDamagedAnimation]='dataService.gameState.playerTwo.animations.gotDamaged'>
                  <p>health: {{dataService.gameState.playerTwo.health}}</p>
                </div>
                <div class="manaDiv">

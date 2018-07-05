@@ -4,8 +4,8 @@ var AnimationService = /** @class */ (function () {
     function AnimationService() {
         this.animationList = [];
     }
-    AnimationService.prototype.addToAnimationList = function (card, animation) {
-        this.animationList.push(new Animation(card, animation));
+    AnimationService.prototype.addToAnimationList = function (target, animation) {
+        this.animationList.push(new Animation(target, animation));
     };
     AnimationService.prototype.emptyAnimationList = function () {
         this.animationList = [];
@@ -17,8 +17,8 @@ var AnimationService = /** @class */ (function () {
 }());
 exports.AnimationService = AnimationService;
 var Animation = /** @class */ (function () {
-    function Animation(card, animation) {
-        this.card = card;
+    function Animation(target, animation) {
+        this.target = target;
         this.animation = animation;
     }
     return Animation;

@@ -58,6 +58,12 @@ export const animations: any[] = [
       animate(250)
     ])
   ]),
+  trigger('PlayerDamagedAnimation', [
+    transition('* => true', [
+      style({backgroundColor: 'red'}),
+      animate(400)
+    ])
+  ]),
   trigger('cardDamagedAnimation', [
     transition('* => true', [
       style({ backgroundColor: 'red'}),

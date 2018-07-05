@@ -39,7 +39,9 @@ export class GameServer {
         });
 
         this.app.get('/newGame', (req, res) => {
-            this.gameService.gameState = this.gameService.createNewGame();
+            this.gameService.createNewGame();
+            console.log("starting new Game")
+            this.io.emit('changeInGameState', "A change has happened in the gameState");
             res.send("new Game started");
         });
 
@@ -97,6 +99,7 @@ export class GameServer {
                 this.animationService.addToAnimationList(data.attackerCard, "attackPlayer")
                 this.sendAnimationList();
                 setTimeout(() => {
+                    this.animationService.addToAnimationList(this.gameService.gameState.getPassivePlayer(), 'playerDamaged')
                     this.gameService.attackEnemyPlayer(data.attackerCard);
                     this.sendSoundPlayList();
                     this.sendAnimationList();

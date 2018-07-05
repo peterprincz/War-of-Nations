@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var Player_1 = require("./Player");
 var GameState = /** @class */ (function () {
     function GameState(playerOne, playerTwo) {
         this.playerOne = playerOne;
@@ -26,6 +27,9 @@ var GameState = /** @class */ (function () {
             this.playerOne.isActive = true;
             this.playerTwo.isActive = false;
         }
+    };
+    GameState.createEmptyGameState = function () {
+        return new GameState(new Player_1.Player("", []), new Player_1.Player("", []));
     };
     GameState.prototype.getRealCardFromJson = function (cardFromJson) {
         var realCard = this.playerOne.half.cards.filter(function (x) { return cardFromJson.id == x.id; })[0];

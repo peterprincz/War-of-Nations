@@ -1,4 +1,5 @@
 import { Card } from "../model/cards/Card";
+import { Player } from "../model/Player";
 
 export class AnimationService{
 
@@ -8,8 +9,8 @@ export class AnimationService{
         this.animationList = [];
     }
 
-    addToAnimationList(card:Card, animation:string){
-        this.animationList.push(new Animation(card, animation));
+    addToAnimationList(target:Card|Player, animation:string){
+        this.animationList.push(new Animation(target, animation));
     }
 
     emptyAnimationList(){
@@ -25,11 +26,11 @@ export class AnimationService{
 
 export class Animation {
 
-    card:Card;
+    target:Card | Player;
     animation:string;
 
-    constructor(card:Card, animation:string){
-        this.card = card;
+    constructor(target:Card | Player, animation:string){
+        this.target = target;
         this.animation = animation;
     }
 
