@@ -9,6 +9,7 @@ import { Kereszteslovag } from '../model/cards/Kereszteslovag';
 import { Olaszzsoldos } from '../model/cards/Olaszzsoldos';
 import { Lovasijasz } from '../model/cards/Lovasijasz';
 import { Pap } from '../model/cards/Pap';
+import { LengyelHuszar } from '../model/cards/LengyelHuszar';
 
 
 /**
@@ -95,6 +96,8 @@ export class CardLogicService {
       cards.push(this.makeCard('Magyarhonved'));
       cards.push(this.makeCard('Kereszteslovag'));
       cards.push(this.makeCard('Olaszzsoldos'));
+      cards.push(this.makeCard('Pap'));
+      cards.push(this.makeCard('LengyelHuszar'))
       cards.push(this.makeCard('Lovasijasz'));
     }
     return cards;
@@ -108,6 +111,7 @@ export class CardLogicService {
     if(type == 'Olaszzsoldos')      {CardLogicService.cardId++;   return new Olaszzsoldos(CardLogicService.cardId)}
     if(type == 'Lovasijasz')        {CardLogicService.cardId++;   return new Lovasijasz(CardLogicService.cardId)}
     if(type == 'Pap')               {CardLogicService.cardId++;   return new Pap(CardLogicService.cardId)}
+    if(type == 'LengyelHuszar')     {CardLogicService.cardId++;   return new LengyelHuszar(CardLogicService.cardId)}
     return new Lovasijasz(-1);
   }
 

@@ -15,8 +15,6 @@ var Szamuraj = /** @class */ (function (_super) {
     __extends(Szamuraj, _super);
     function Szamuraj(id) {
         var _this = _super.call(this, id, 2, 9, 3) || this;
-        _this.onCoolDown = true;
-        _this.hasTaunt = false;
         _this.soundFolderLocation = 'assets/sounds/samuraj/';
         _this.backgroundImageName = '/cards/szamuraj.png';
         _this.onAttackSound = 'attack.ogx';

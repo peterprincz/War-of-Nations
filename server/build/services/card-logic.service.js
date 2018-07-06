@@ -6,6 +6,8 @@ var Magyarhonved_1 = require("../model/cards/Magyarhonved");
 var Kereszteslovag_1 = require("../model/cards/Kereszteslovag");
 var Olaszzsoldos_1 = require("../model/cards/Olaszzsoldos");
 var Lovasijasz_1 = require("../model/cards/Lovasijasz");
+var Pap_1 = require("../model/cards/Pap");
+var LengyelHuszar_1 = require("../model/cards/LengyelHuszar");
 /**
  *
  * Responsible for the communication between the Card and Card and between the Cards and the gameFlow and giving information to the animation and soundServices
@@ -76,6 +78,8 @@ var CardLogicService = /** @class */ (function () {
             cards.push(this.makeCard('Kereszteslovag'));
             cards.push(this.makeCard('Olaszzsoldos'));
             cards.push(this.makeCard('Lovasijasz'));
+            cards.push(this.makeCard('Pap'));
+            cards.push(this.makeCard('LengyelHuszar'));
         }
         return cards;
     };
@@ -103,6 +107,14 @@ var CardLogicService = /** @class */ (function () {
         if (type == 'Lovasijasz') {
             CardLogicService.cardId++;
             return new Lovasijasz_1.Lovasijasz(CardLogicService.cardId);
+        }
+        if (type == 'Pap') {
+            CardLogicService.cardId++;
+            return new Pap_1.Pap(CardLogicService.cardId);
+        }
+        if (type == 'LengyelHuszar') {
+            CardLogicService.cardId++;
+            return new LengyelHuszar_1.LengyelHuszar(CardLogicService.cardId);
         }
         return new Lovasijasz_1.Lovasijasz(-1);
     };
