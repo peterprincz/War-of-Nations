@@ -14,7 +14,7 @@ export class StyleService {
   getAttackNumberStyle(card: Card) {
     const style: any = {};
     if (card.attack != card.baseAttack) {
-      style['color'] = 'green';
+      style['color'] = 'lime';
     } else {
       style['color'] = 'white';
     }
@@ -24,7 +24,7 @@ export class StyleService {
   getHealthNumberStyle(card: Card):any {
     const style: any = {};
     if (card.health != card.baseHealth) {
-      style['color'] = 'green';
+      style['color'] = 'lime';
     } else {
       style['color'] = 'white';
     }
@@ -34,7 +34,7 @@ export class StyleService {
   getManaNumberStyle(card: Card):any {
     const style: any = {};
     if (card.mana != card.baseMana) {
-      style['color'] = 'gren';
+      style['color'] = 'lime';
     } else {
       style['color'] = 'white';
     }

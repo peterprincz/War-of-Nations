@@ -54,8 +54,6 @@ export class GameLogicService {
   }
 
   isCardAbleToAttackEnemyCard(attackerCard:Card, defenderCard: Card, defenderPlayer: Player){
-    console.log(attackerCard);
-    console.log(defenderCard);
     return this.cardLogicService.isCardAbleToAttackEnemyCard(attackerCard, defenderCard) &&
            (defenderCard.hasTaunt || defenderPlayer.half.cards.filter(x => x.hasTaunt).length < 1)
   }

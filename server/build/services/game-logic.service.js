@@ -36,8 +36,6 @@ var GameLogicService = /** @class */ (function () {
         this.cardLogicService.onPlayFromHand(activePlayer, passivePlayer, card);
     };
     GameLogicService.prototype.isCardAbleToAttackEnemyCard = function (attackerCard, defenderCard, defenderPlayer) {
-        console.log(attackerCard);
-        console.log(defenderCard);
         return this.cardLogicService.isCardAbleToAttackEnemyCard(attackerCard, defenderCard) &&
             (defenderCard.hasTaunt || defenderPlayer.half.cards.filter(function (x) { return x.hasTaunt; }).length < 1);
     };

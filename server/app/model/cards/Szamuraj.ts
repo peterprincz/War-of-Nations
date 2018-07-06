@@ -5,8 +5,6 @@ export class Szamuraj extends Card {
 
   constructor(id: number) {
     super(id,  2, 9, 3);
-    this.onCoolDown = true;
-    this.hasTaunt = false;
     this.soundFolderLocation = 'assets/sounds/samuraj/';
     this.backgroundImageName = '/cards/szamuraj.png';
     this.onAttackSound = 'attack.ogx';
