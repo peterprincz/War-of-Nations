@@ -8,6 +8,7 @@ import { Magyarhonved } from '../model/cards/Magyarhonved';
 import { Kereszteslovag } from '../model/cards/Kereszteslovag';
 import { Olaszzsoldos } from '../model/cards/Olaszzsoldos';
 import { Lovasijasz } from '../model/cards/Lovasijasz';
+import { Pap } from '../model/cards/Pap';
 
 
 /**
@@ -106,6 +107,7 @@ export class CardLogicService {
     if(type == 'Kereszteslovag')    {CardLogicService.cardId++;   return new Kereszteslovag(CardLogicService.cardId)}
     if(type == 'Olaszzsoldos')      {CardLogicService.cardId++;   return new Olaszzsoldos(CardLogicService.cardId)}
     if(type == 'Lovasijasz')        {CardLogicService.cardId++;   return new Lovasijasz(CardLogicService.cardId)}
+    if(type == 'Pap')               {CardLogicService.cardId++;   return new Pap(CardLogicService.cardId)}
     return new Lovasijasz(-1);
   }
 
